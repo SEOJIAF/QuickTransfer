@@ -5,6 +5,7 @@
 
     let docId = "";
     let retrievedText = "";
+    let copybutton = "copy text"
 
     async function load() {
         if (!docId) {
@@ -21,6 +22,18 @@
             alert("No text found.");
         }
     }
+
+    function copytext() {
+    // Select the text field
+
+    // Copy the text inside the text field
+    try {
+        navigator.clipboard.writeText(retrievedText);
+        copybutton = "text copied";
+    } catch (error) {
+        copybutton = "error";
+    }
+}
 </script>
 
 <main class="containerload">
@@ -28,5 +41,8 @@
     <input type="text" bind:value={docId} placeholder="Enter text ID">
     <button on:click={load}>Load</button>
     <button on:click={() => goto('/')}>Back</button>
-    <p>Retrieved Text: <pre>{retrievedText}</pre>
+    <p>Retrieved Text </p>
+    <button on:click={copytext} class="copyBtn"> {copybutton}</button>
+    <pre>{retrievedText}</pre>
 </main>
+
