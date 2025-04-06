@@ -36,6 +36,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@sveltejs/adapter-static": "^3.0.8",
 		"firebase": "^11.6.0",
 		"vercel": "^41.4.1"
 	}
