@@ -5,13 +5,7 @@
       "use": "@sveltejs/adapter-vercel"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
   "env": {
-    "NODE_VERSION": "16"
+    "NODE_OPTIONS": "--experimental-modules"
   }
 }
