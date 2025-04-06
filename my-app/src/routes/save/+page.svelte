@@ -13,7 +13,7 @@
         }
 
         if (text.length >= 3000) {
-            alert(`Input is too long: ${text.length} out of 2500.`);
+            alert(`Input is too long: ${text.length} out of 3000.`);
             return;
         }
 
