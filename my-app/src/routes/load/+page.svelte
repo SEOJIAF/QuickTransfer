@@ -36,7 +36,7 @@
 }
 </script>
 
-<main class="container">
+<main class="containerload">
     <h1>Load Text</h1>
     <input type="text" bind:value={docId} placeholder="Enter text ID">
     <button on:click={load}>Load</button>

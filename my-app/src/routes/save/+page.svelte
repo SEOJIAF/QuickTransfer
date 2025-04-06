@@ -12,8 +12,8 @@
             return;
         }
 
-        if (text.length >= 3000) {
-            alert(`Input is too long: ${text.length} out of 3000.`);
+        if (text.length >= 2500) {
+            alert(`Input is too long: ${text.length} out of 2500.`);
             return;
         }
 
@@ -31,7 +31,6 @@
 
 <main class="container">
     <h1>Save Text</h1>
-    <button class="fullBtn">see full</button>
     <textarea bind:value={text} placeholder="Enter your text here..."></textarea>
     <button on:click={save}>Save</button>
     <button on:click={() => goto('/')}>Back</button>
