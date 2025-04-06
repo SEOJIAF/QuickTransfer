@@ -4,7 +4,7 @@
     import { doc, setDoc } from "firebase/firestore";
 
     let text = "";
-
+    const docId = Math.floor(Math.random() * 10000 + 1000).toString();
     async function save() {
         
         if (!text) {
@@ -18,7 +18,7 @@
         }
 
         // ✅ Generate docId before using it
-        const docId = Math.floor(Math.random() * 10000 + 1000).toString();
+        
         
         await setDoc(doc(db, "texts", docId), {
             content: text,
@@ -35,4 +35,5 @@
     <textarea bind:value={text} placeholder="Enter your text here..."></textarea>
     <button on:click={save}>Save</button>
     <button on:click={() => goto('/')}>Back</button>
+    <h1>{docId}</h1>
 </main>
