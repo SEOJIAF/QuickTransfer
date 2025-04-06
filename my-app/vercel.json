@@ -1,10 +1,17 @@
 {
-    "builds": [
-      {
-        "src": "src/routes/**/*",
-        "use": "@sveltejs/adapter-vercel"
-      }
-    ],
-    "outputDirectory": "build"
+  "builds": [
+    {
+      "src": "svelte.config.js",
+      "use": "@sveltejs/adapter-vercel"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "NODE_VERSION": "16"
   }
-  
+}
