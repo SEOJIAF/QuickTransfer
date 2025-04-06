@@ -39,6 +39,4 @@
     <h1>Welcome</h1>
     <button on:click={() => goto('/save')}>Go to Save Page</button>
     <button on:click={() => goto('/load')}>Go to Load Page</button>
-    <h1>wow</h1>
-    <h2>smaller wow</h2>
 </main>

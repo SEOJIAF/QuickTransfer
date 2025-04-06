@@ -31,6 +31,7 @@
 
 <main class="container">
     <h1>Save Text</h1>
+    <button class="fullBtn">see full</button>
     <textarea bind:value={text} placeholder="Enter your text here..."></textarea>
     <button on:click={save}>Save</button>
     <button on:click={() => goto('/')}>Back</button>
