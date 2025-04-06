@@ -36,7 +36,7 @@
 }
 </script>
 
-<main class="containerload">
+<main class="container">
     <h1>Load Text</h1>
     <input type="text" bind:value={docId} placeholder="Enter text ID">
     <button on:click={load}>Load</button>
@@ -45,4 +45,3 @@
     <button on:click={copytext} class="copyBtn"> {copybutton}</button>
     <pre>{retrievedText}</pre>
 </main>
-

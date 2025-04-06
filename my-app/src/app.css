@@ -1,4 +1,12 @@
-/* Global Reset */
+
+
+
+
+p{
+    margin: 10px 5px 5px 5px;
+}
+
+/* Reset basic styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,116 +14,156 @@
     font-family: 'Inter', sans-serif;
 }
 
-/* Dark Mode Colors */
-:root {
-    --background: #121212;
-    --card-bg: #1E1E1E;
-    --primary: #42A5F5;
-    --text-color: #E0E0E0;
-    --danger: #EF5350;
-    --border-radius: 12px;
-    --transition: 0.3s ease-in-out;
-}
-
+/* Body styles for dark theme */
 body {
-    background: var(--background);
-    color: var(--text-color);
+    background-color: #181818; /* Dark background */
+    color: #E0E0E0; /* Light text */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     padding: 20px;
-}
-
-/* Buttons */
-button {
-    background: none;
-    border: 1px solid #b1b1b1;
-    color: white;
-    padding: 12px 20px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
     font-size: 16px;
-    transition: var(--transition);
-    margin: 20px 10px 20px 10px;
-    
 }
 
-button:hover {
-    background-color: #dddddd;
-    color: #0a0a0a;
+/* Add a subtle animation to the page */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
-/* Containers */
 .container {
-    background: var(--card-bg);
-    padding: 24px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background-color: #1E1E1E; /* Slightly lighter dark background */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 32px;
+    width: 100%;
     max-width: 500px;
-    width: 100%;
-    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-.containerload {
-    background: var(--card-bg);
-    padding: 24px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    max-width: 1000px;
-    overflow: hidden;
+/* Button and Input Styles */
+button, input, textarea {
     width: 100%;
-    text-align: start;
-}
-
-
-pre{
+    padding: 14px;
     margin-top: 10px;
-    background-color: #0a0a0a;
-    /* border-radius: 6rem; */
-    overflow: auto;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-
-/* Inputs */
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background: #333;
-    border: 1px solid #444;
-    border-radius: var(--border-radius);
-    color: white;
+    border-radius: 12px;
+    border: 1px solid #333;
+    background-color: #333;
+    color: #fff;
     font-size: 16px;
+    transition: all 0.3s ease;
 }
 
-input:focus, textarea:focus {
+/* Input focus and button hover */
+input:focus, textarea:focus, button:hover {
     outline: none;
-    border-color: var(--primary);
+    border-color: #6200EA; /* Purple border when focused */
+    background-color: #333; /* Keep the background dark */
+    transform: translateY(-2px);
 }
 
-/* Error Page */
-.error-card {
-    background: var(--card-bg);
-    padding: 40px;
-    border-radius: var(--border-radius);
+/* Button specific styles */
+button {
+    background-color: #6200EA; /* Purple button */
+    border: none;
+    cursor: pointer;
+}
+
+/* Add a subtle animation to buttons */
+button:hover {
+    background-color: #3700B3;
+    transform: scale(1.05);
+}
+
+/* Header styling */
+h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
     text-align: center;
-    max-width: 400px;
 }
 
-img{
-    width: 3%;
-    height: 3%;
+/* Make text areas scrollable when content overflows */
+pre {
+    max-height: 200px;
+    overflow: auto;
+    padding: 12px;
+    background-color: #2C2C2E;
+    border-radius: 10px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    margin-top: 15px;
 }
 
+/* Links and error text */
+a {
+    color: #6200EA;
+    text-decoration: none;
+}
 
-.copyBtn:active {
-    transition: none;
-    transform: translateY(4px);
-  }
+a:hover {
+    text-decoration: underline;
+}
 
-#error {
-    color: var(--danger);
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1a1a1a; /* Dark background */
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background-color: #242424; /* Panel background */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h1 {
+    color: #ffffff; /* White color for the title */
+    margin-bottom: 30px;
+}
+
+.btn {
+    background-color: #6a5acd; /* Purple button background */
+    color: #fff; /* White text */
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #8a2be2; /* Change to lighter purple on hover */
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+.btn:focus {
+    outline: none; /* Remove default focus border */
+}
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    button {
+        padding: 12px;
+    }
 }
