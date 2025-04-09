@@ -35,8 +35,31 @@
 
 </script>
 
-<main class="container">
-    <h1>Welcome</h1>
-    <button on:click={() => goto('/save')}>Go to Save Page</button>
-    <button on:click={() => goto('/load')}>Go to Load Page</button>
+<main class="container"id="home-page">
+  <header class="top-bar">
+    <div class="logo">
+      ⚡ QuickTransfer <span class="version">v1.0</span>
+    </div>
+    <nav class="nav-links">
+      <a href="https://example.com/sponsor">How it works</a>
+      <a href="https://example.com/sponsor">GitHub</a>
+      <a href="https://example.com/sponsor" target="_blank" rel="noopener noreferrer">Sponsor</a>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <div class="hero-text">
+      <h1>Share text across devices</h1>
+      <p>Using just a web browser to any device on the Internet!</p>
+      <div class="btns">
+        <button on:click={() => goto('/save')}>Go to Save Page</button>
+        <button on:click={() => goto('/load')}>Go to Load Page</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://i.imgur.com/h6PMVEx.png" alt="network graphic" />
+    </div>
+  </main>
+
+  <footer class="footer-wave"></footer>
 </main>
