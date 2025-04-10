@@ -39,6 +39,7 @@
 <main class="container">
     <h1>Load Text</h1>
     <input type="text" bind:value={docId} placeholder="Enter text ID">
+    <p></p>
     <button on:click={load}>Load</button>
     <button on:click={() => goto('/')}>Back</button>
     <p>Retrieved Text </p>
