@@ -148,6 +148,12 @@ justify-content: center;
 
 }
 
+.startbutton{
+    font-family: Jost,sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
 .btns{
     display: flex;
     padding: 0px;

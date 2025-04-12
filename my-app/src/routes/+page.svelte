@@ -51,10 +51,10 @@
   <main class="hero">
     <div class="hero-text">
       <h1>Share text across devices</h1>
-      <p>Using just a web browser to any device on the Internet!</p>
+      <p>Paste, send, receive—no installs needed.</p>
       <div class="btns">
-        <button on:click={() => goto('/save')}>Go to Save Page</button>
-        <button on:click={() => goto('/load')}>Go to Load Page</button>
+        <button on:click={() => goto('/save')} class="startbutton">Send Text</button>
+        <button on:click={() => goto('/load')} class="startbutton">Retrieve Text</button>
       </div>
     </div>
     <div class="hero-image">
