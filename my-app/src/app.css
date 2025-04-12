@@ -9,6 +9,10 @@ margin: 0;
 padding: 0;
 }
 
+main{
+    padding:  0px 0px 0px 0px;
+}
+
 html, body {
 height: 100%; /* Ensure the body and HTML take up the full page height */
 margin: 0;
@@ -26,6 +30,7 @@ height: 100%; /* Ensure container takes up the full page height */
 display: flex; /* Use flexbox to align children */
 flex-direction: column; /* Stack elements vertically */
 height: 100vh; /* Make the main content take full viewport height */
+padding:  0px 0px 0px 0px
 }
 
 .hero.full-screen {
@@ -57,10 +62,10 @@ flex: 1; /* Allow the container to expand and fill the available space */
 /* Top bar styling */
 .top-bar {
 display: flex;
-justify-content: flex-start; /* Aligns content to the left */
+justify-content: space-between; /* Aligns content to the left */
 align-items: center; /* Vertically center the content */
 width: 100%; /* Ensures the top bar spans across the entire width */
-padding: 10px 20px; /* Adjust padding as needed */
+padding: 1.5rem 4rem 1.5rem 4rem;
 background-color: #333; /* Set background color */
 color: white; /* Text color */
 }
@@ -74,7 +79,7 @@ color: white; /* Text color */
 
 .logo {
 font-weight: bold;
-font-size: 1.2rem;
+font-size: 1.7rem;
 }
 
 .version {
@@ -86,11 +91,26 @@ margin-left: 0.5rem;
 border-radius: 4px;
 }
 
+
+
+.nav-div{
+    display: flex;
+    justify-content: end;
+}
+
+img{
+    width: 70%;
+}
+
+
 .nav-links a {
+    font-size: 1rem;
 color: #ccc;
 margin-left: 1rem;
 text-decoration: none;
 transition: color 0.3s;
+justify-content: end;
+
 }
 
 .nav-links a:hover {
@@ -129,9 +149,8 @@ justify-content: center;
 }
 
 .btns{
-display: flex;
-justify-content: space-around;
-transform: translateX(-150px);
+    display: flex;
+    padding: 0px;
 }
 
 .hero-image {
@@ -194,7 +213,7 @@ font-size: 1rem;
 border-radius: 6px;
 cursor: pointer;
 transition: background-color 0.3s ease;
-margin-top: 1rem;
+margin: 1rem 1rem;
 }
 
 button:hover {

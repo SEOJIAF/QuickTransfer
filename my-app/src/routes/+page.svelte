@@ -40,11 +40,12 @@
     <div class="logo">
       ⚡ QuickTransfer <span class="version">v1.0</span>
     </div>
-    <nav class="nav-links">
-      <a href="https://example.com/sponsor">How it works</a>
-      <a href="https://example.com/sponsor">GitHub</a>
-      <a href="https://example.com/sponsor" target="_blank" rel="noopener noreferrer">Sponsor</a>
-    </nav>
+    <div class="nav-div">
+      <nav class="nav-links">
+        <a href="https://example.com/sponsor">How it works</a>
+        <a href="https://example.com/sponsor">GitHub</a>
+      </nav>
+    </div>
   </header>
 
   <main class="hero">
@@ -57,7 +58,7 @@
       </div>
     </div>
     <div class="hero-image">
-      <img src="https://i.imgur.com/h6PMVEx.png" alt="network graphic" />
+      <img src="\logonew.png" alt="network graphic" />
     </div>
   </main>
 
