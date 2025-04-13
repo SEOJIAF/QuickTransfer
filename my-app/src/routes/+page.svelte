@@ -63,7 +63,7 @@
   </main>
   <div class="feet">
     <p class="downtext">Secure. Encrypted. Private.</p>
-    <a href="https://github.com/SEOJIAF/QuickSync/issues" class="downtext">Feedback</a>
+    <a href="https://github.com/SEOJIAF/QuickSync/issues"  target="_blank"class="downtext">Feedback</a>
     
   </div>
   <footer class="footer-wave"></footer>
