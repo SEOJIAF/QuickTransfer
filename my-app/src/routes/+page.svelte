@@ -51,9 +51,9 @@
   <main class="hero">
     <div class="hero-text">
       <h1>Share text across devices</h1>
-      <p>Paste, send, receive—no installs needed.</p>
+      <p>Paste and transfer text instantly—no apps, no accounts</p>
       <div class="btns">
-        <button on:click={() => goto('/save')} class="startbutton">Send Text</button>
+        <button on:click={() => goto('/save')} class="startbutton">Save Text</button>
         <button on:click={() => goto('/load')} class="startbutton">Retrieve Text</button>
       </div>
     </div>
@@ -61,6 +61,10 @@
       <img src="\logonew.png" alt="network graphic" />
     </div>
   </main>
-
+  <div class="feet">
+    <p class="downtext">Secure. Encrypted. Private.</p>
+    <a href="https://github.com/SEOJIAF/QuickSync/issues" class="downtext">Feedback</a>
+    
+  </div>
   <footer class="footer-wave"></footer>
 </main>

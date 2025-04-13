@@ -152,11 +152,15 @@ justify-content: center;
     font-family: Jost,sans-serif;
     font-weight: 600;
     font-size: 1.2rem;
+    margin-right: 3rem;
+    box-shadow: 0px 3px 20px #0090a0;
 }
 
 .btns{
     display: flex;
     padding: 0px;
+    margin-top: 4rem;
+
 }
 
 .hero-image {
@@ -172,8 +176,8 @@ height: auto;
 /* Footer Wave */
 .footer-wave {
 height: 40px;
-background: linear-gradient(to right, #00bcd4, #61dafb);
-margin-top: 3rem;
+background: linear-gradient(to right, #00bcd4, #07526f);
+margin-top: 0rem;
 }
 
 /* Form and Buttons */
@@ -273,4 +277,38 @@ margin-top: 1rem;
 }
 
 
+.code-input {
+    display: flex;
+    gap: 10px;
+  }
 
+  .code-input input {
+    width: 50px;
+    height: 60px;
+    font-size: 2rem;
+    text-align: center;
+    border: 2px solid #00cfe8;
+    border-radius: 8px;
+    background-color: #111;
+    color: white;
+    outline: none;
+    margin: 0px 0.3rem;
+  }
+
+  .code-input input:focus {
+    border-color: #00ffff;
+  }
+
+.downtext{
+    margin-bottom: 4rem;
+    font-size: 1.3rem;
+    color: #b1b1b1;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+.feet{
+    margin: 0px 4rem;
+    display: flex;
+    justify-content: space-between;
+}
