@@ -63,6 +63,7 @@
     <div class="code-input">
       {#each code as digit, index}
         <input
+          inputmode="numeric"
           bind:this={inputs[index]}
           type="text"
           maxlength="1"
