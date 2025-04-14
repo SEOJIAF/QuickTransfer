@@ -323,6 +323,7 @@ justify-content: space-between;
 margin: 10px;
 position: relative;
 margin-top: 2rem;
+
 }
 
 .formField input {
@@ -330,12 +331,14 @@ padding: 10px 15px;
 outline: none;
 border: none;
 border-radius: 5px;
-background-color: #f1f1f1;
+background-color: #333;
 color: #333;
 font-size: 16px;
 font-weight: 550;
 transition: 0.3s ease-in-out;
 box-shadow: 0 0 0 5px transparent;
+border: 1px solid  #00ffff;
+color: #e0e0e0;
 }
 
 .formField input:hover,
@@ -344,7 +347,6 @@ box-shadow: 0 0 0 2px #333;
 }
 
 .formField span {
-font-family: "Kanit", Tahoma, Geneva, Verdana, sans-serif;
 position: absolute;
 left: 0;
 top: 0;
