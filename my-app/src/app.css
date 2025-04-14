@@ -51,6 +51,12 @@ display: flex;
 flex-direction: column;
 }
 
+.retrieved{
+    padding: 10px;
+    background-color: #111;
+    border-radius: 6px;
+}
+
 .container {
 width: 100%;
 height: 100%;
@@ -278,37 +284,92 @@ margin-top: 1rem;
 
 
 .code-input {
-    display: flex;
-    gap: 10px;
-  }
+display: flex;
+gap: 10px;
+}
 
-  .code-input input {
-    width: 50px;
-    height: 60px;
-    font-size: 2rem;
-    text-align: center;
-    border: 2px solid #00cfe8;
-    border-radius: 8px;
-    background-color: #111;
-    color: white;
-    outline: none;
-    margin: 0px 0.3rem;
-  }
+.code-input input {
+width: 50px;
+height: 60px;
+font-size: 2rem;
+text-align: center;
+border: 2px solid #00cfe8;
+border-radius: 8px;
+background-color: #111;
+color: white;
+outline: none;
+margin: 0px 0.3rem;
+}
 
-  .code-input input:focus {
-    border-color: #00ffff;
-  }
+.code-input input:focus {
+border-color: #00ffff;
+}
 
 .downtext{
-    margin-bottom: 4rem;
-    font-size: 1.3rem;
-    color: #b1b1b1;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
+margin-bottom: 4rem;
+font-size: 1.3rem;
+color: #b1b1b1;
+align-items: center;
+justify-content: center;
+text-decoration: none;
 }
 .feet{
-    margin: 0px 4rem;
-    display: flex;
-    justify-content: space-between;
+margin: 0px 4rem;
+display: flex;
+justify-content: space-between;
+}
+/* From Uiverse.io by bedirhan-arslan */ 
+.formField {
+margin: 10px;
+position: relative;
+margin-top: 2rem;
+}
+
+.formField input {
+padding: 10px 15px;
+outline: none;
+border: none;
+border-radius: 5px;
+background-color: #f1f1f1;
+color: #333;
+font-size: 16px;
+font-weight: 550;
+transition: 0.3s ease-in-out;
+box-shadow: 0 0 0 5px transparent;
+}
+
+.formField input:hover,
+.formField input:focus {
+box-shadow: 0 0 0 2px #333;
+}
+
+.formField span {
+font-family: "Kanit", Tahoma, Geneva, Verdana, sans-serif;
+position: absolute;
+left: 0;
+top: 0;
+padding: 8px 15px;
+color: #333;
+font-size: 16px;
+font-weight: 600;
+transition: 0.3s ease-in-out;
+pointer-events: none;
+}
+
+.formField input:focus + span,
+.formField input:valid + span {
+transform: translateY(-32px) translateX(-5px) scale(0.95);
+transition: 0.3s ease-in-out;
+color: #e0e0e0;
+}
+
+
+.copyBtn{
+    background-color: #333;
+    color: #ccc;
+}
+.copyBtn:hover{
+    transition: ease-in-out 0.1s;
+    background-color: #444;
+    color: #e0e0e0;
 }
