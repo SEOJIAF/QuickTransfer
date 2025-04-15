@@ -55,6 +55,7 @@ flex-direction: column;
     padding: 10px;
     background-color: #111;
     border-radius: 6px;
+    overflow: auto;
 }
 
 .container {
@@ -182,7 +183,7 @@ height: auto;
 /* Footer Wave */
 .footer-wave {
 height: 40px;
-background: linear-gradient(to right, #00bcd4, #07526f);
+background: linear-gradient(to right, #00bcd4, #04374b);
 margin-top: 0rem;
 }
 
