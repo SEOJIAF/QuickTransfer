@@ -78,7 +78,7 @@
   <main class="container">
     <h1>Load Text</h1>
     <form class="formField">
-      <input bind:value={docId}/>
+      <input bind:value={docId} inputmode="numeric"/>
       <span>ID</span>
     </form>
     
