@@ -35,7 +35,6 @@
     <button class="fullBtn">see full</button>
     <textarea bind:value={text} placeholder="Enter your text here..."></textarea>
     <button on:click={save}>Save</button>
-    <button on:click={() => goto('/')}>Back</button>
     {#if docId.length>0}
     <h1>{docId}</h1>
     {/if}

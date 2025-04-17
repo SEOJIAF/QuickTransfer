@@ -84,7 +84,6 @@
     
     <p></p>
     <button on:click={load}>Load</button>
-    <button on:click={() => goto("/")}>Back</button>
     <p>Retrieved Text</p>
     <button on:click={copytext} class="copyBtn">{copybutton}</button>
     <button on:click={togglePopup} class="copyBtn">Qr code</button>

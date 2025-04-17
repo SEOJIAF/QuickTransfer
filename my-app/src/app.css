@@ -384,12 +384,25 @@ color: #e0e0e0;
     border-radius: 10px;
 }
 /* Popup container */
+
+@keyframes popupFadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+
 .popup {
     position: relative;
     display: inline-block;
     cursor: pointer;
     overflow: hidden;
-
+    animation: popupFadeIn 0.3s ease-out;
   }
   
   .popup-overlay {
@@ -403,6 +416,7 @@ color: #e0e0e0;
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    animation: ease-out 3s;
   }
 
   .popup-content {
@@ -414,6 +428,7 @@ color: #e0e0e0;
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     max-width: 90%;
     text-align: center;
+    animation: popupFadeIn 0.3s ease-out;
   }
 
 

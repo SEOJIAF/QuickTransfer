@@ -36,17 +36,7 @@
 </script>
 
 <main class="container"id="home-page">
-  <header class="top-bar">
-    <div class="logo">
-      ⚡ QuickTransfer <span class="version">v1.0</span>
-    </div>
-    <div class="nav-div">
-      <nav class="nav-links">
-        <a href="https://example.com/sponsor">How it works</a>
-        <a href="https://example.com/sponsor">GitHub</a>
-      </nav>
-    </div>
-  </header>
+
 
   <main class="hero">
     <div class="hero-text">
