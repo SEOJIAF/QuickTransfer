@@ -5,7 +5,8 @@
     import { onMount } from 'svelte';
     import { get } from 'svelte/store';
     import { page } from "$app/stores";
-  
+
+
     let docId = "";
     let retrievedText = "";
     let copybutton = "copy text";
@@ -54,6 +55,16 @@
         copybutton = "error";
       }
     }
+
+
+let qrUrl = "";
+
+function makeQr() {
+  qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${get(page).url}&size=15000x15000`;
+}
+    
+
+
   </script>
   
   
@@ -74,6 +85,9 @@
     <button on:click={() => goto("/")}>Back</button>
     <p>Retrieved Text</p>
     <button on:click={copytext} class="copyBtn">{copybutton}</button>
+    <button on:click={makeQr} class="copyBtn">Qr code</button>
     <pre class="retrieved">{retrievedText}</pre>
+    <img src={qrUrl} alt="QR Code" class="qr">
+
   </main>
   
