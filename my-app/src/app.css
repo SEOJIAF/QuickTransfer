@@ -380,6 +380,8 @@ color: #e0e0e0;
 .qr{
     width: 100%;
     z-index: 10000000000000;
+    border: 10px solid #111111;
+    border-radius: 10px;
 }
 /* Popup container */
 .popup {
@@ -404,7 +406,9 @@ color: #e0e0e0;
   }
 
   .popup-content {
-    background: #181818;
+    
+    background: linear-gradient(165deg,rgba(24, 24, 24, 1) 0%, rgba(54, 54, 54, 1) 100%);
+    border: 1px solid #383838;
     padding: 2rem;
     border-radius: 0.75rem;
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
@@ -412,11 +416,19 @@ color: #e0e0e0;
     text-align: center;
   }
 
+
+.poptext{
+    margin-bottom: 1rem;  
+}
+.poptext2{
+    letter-spacing: 1px; 
+}
+
   .close-button {
     margin-top: 1rem;
     background: #00cfe8;
     border: none;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     cursor: pointer;

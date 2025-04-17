@@ -100,11 +100,11 @@
       <!-- svelte-ignore a11y_click_events_have_key_events -->
       <!-- svelte-ignore a11y_interactive_supports_focus -->
       <div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
-        <h2>Hello!</h2>
-        <p>This is a popup window.</p>
+        <h2 class="poptext2">Qr code</h2>
+        <p class="poptext">Scan to share.</p>
         <img src={qrUrl} alt="s"class="qr">
         <p></p>
-        <button class="close-button" on:click={togglePopup}>Close</button>
+        <button on:click={togglePopup}>Close</button>
       </div>
     </div>
     {/if}
