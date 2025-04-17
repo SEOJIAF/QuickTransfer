@@ -7,9 +7,11 @@
     import { page } from "$app/stores";
 
 
+
     let docId = "";
     let retrievedText = "";
     let copybutton = "copy text";
+    let qrUrl = "";
   
     onMount(async () => {
       const $page = get(page); // use get() to read the store synchronously
@@ -57,15 +59,15 @@
     }
 
 
-let qrUrl = "";
-
-function makeQr() {
-  qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${get(page).url}&size=15000x15000`;
-}
     
 
+  let showPopup = false;
 
-  </script>
+  function togglePopup() {
+    qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${get(page).url}&size=15000x15000`;
+    showPopup = !showPopup;
+  }
+</script>
   
   
 
@@ -85,9 +87,26 @@ function makeQr() {
     <button on:click={() => goto("/")}>Back</button>
     <p>Retrieved Text</p>
     <button on:click={copytext} class="copyBtn">{copybutton}</button>
-    <button on:click={makeQr} class="copyBtn">Qr code</button>
+    
+    <!-- <button on:click={makeQr} class="copyBtn">Qr code</button> -->
     <pre class="retrieved">{retrievedText}</pre>
-    <img src={qrUrl} alt="QR Code" class="qr">
+
+    
+    <button on:click={togglePopup}>Show Popup</button>
+
+    {#if showPopup}
+      <div class="popup-overlay" role="button" tabindex="0" on:click={togglePopup} on:keydown={(e) => e.key === 'Enter' && togglePopup()}>
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <!-- svelte-ignore a11y_interactive_supports_focus -->
+        <div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
+          <h2>Hello!</h2>
+          <p>This is a popup window.</p>
+          <img src={qrUrl} alt="s"class="qr">
+          <p></p>
+          <button class="close-button" on:click={togglePopup}>Close</button>
+        </div>
+      </div>
+    {/if}
 
   </main>
   
