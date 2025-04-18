@@ -53,10 +53,8 @@
 
   <h1>Save Text</h1>
 
-  <button on:click={() => isExpanded = !isExpanded}>
-    {isExpanded ? "Collapse" : "Expand"}
-  </button>
 
+  <button on:click={save}>Save</button>
   <!-- Always render the textarea, just toggle its size -->
 
   <textarea
@@ -66,7 +64,10 @@
 ></textarea>
 
 
-  <button on:click={save}>Save</button>
+
+  <button on:click={() => isExpanded = !isExpanded} class="copyBtn">
+    {isExpanded ? "Collapse" : "Expand"}
+  </button>
 
   {#if docId.length > 0}
     <h1>{docId}</h1>
