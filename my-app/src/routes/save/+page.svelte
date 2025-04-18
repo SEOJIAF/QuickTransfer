@@ -31,6 +31,11 @@
 </script>
 
 <main class="container">
+    <div class="arrow">
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
+        <svg  class="goback"on:click={() => goto('/')} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </div>
     <h1>Save Text</h1>
     <button class="fullBtn">see full</button>
     <textarea bind:value={text} placeholder="Enter your text here..."></textarea>
