@@ -39,10 +39,10 @@
       const docRef = doc(db, "texts", docId);
       const docSnap = await getDoc(docRef);
   
-      if (docSnap.exists()) {
-        retrievedText = docSnap.data().content;
-
-    }
+	  if (docSnap.exists()) {
+		retrievedText = docSnap.data().content;
+	  }
+	}
 
 	function copytext() {
 		try {
