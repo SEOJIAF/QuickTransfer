@@ -32,13 +32,20 @@
 
 	async function load() {
 		if (!docId) {
-			alert('Enter a text ID.');
-			return;
-		}
-
-		const docRef = doc(db, 'texts', docId);
-		const docSnap = await getDoc(docRef);
-	}
+        alert("Enter a text ID.");
+        return;
+      }
+  
+      const docRef = doc(db, "texts", docId);
+      const docSnap = await getDoc(docRef);
+  
+      if (docSnap.exists()) {
+        retrievedText = docSnap.data().content;
+        goto(`?Id=${docId}`, { replaceState: true });
+      } else {
+        alert("No text found.");
+      }
+    }
 
 	function copytext() {
 		try {
