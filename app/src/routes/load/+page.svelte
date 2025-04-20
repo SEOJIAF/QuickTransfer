@@ -41,10 +41,7 @@
   
       if (docSnap.exists()) {
         retrievedText = docSnap.data().content;
-        goto(`?Id=${docId}`, { replaceState: true });
-      } else {
-        alert("No text found.");
-      }
+
     }
 
 	function copytext() {
