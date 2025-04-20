@@ -10,6 +10,3 @@
 
 {@render children()}
 <title>QuickTransfer</title>
-
-<style>
-</style>

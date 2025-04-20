@@ -4,7 +4,7 @@
 	import { error } from '@sveltejs/kit';
 	import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-
+	let previous_text = "";
 	let docId = '';
 	let status = '';
 
@@ -16,6 +16,13 @@
 		}
 		status = 'saving';
 
+
+		if (previous_text == text){
+			status = "you already saved this message with " + docId
+			togglePopup2()
+			return
+		}
+
 		if (text.length >= 3000) {
 			alert(`Input is too long: ${text.length} out of 3000.`);
 			return;
@@ -23,11 +30,12 @@
 
 		docId = Math.floor(Math.random() * 10000 + 1000).toString();
 
+
 		await setDoc(doc(db, 'texts', docId), {
 			content: text,
 			expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000)
 		});
-
+		previous_text = text
 		status = 'saved';
 	}
 
