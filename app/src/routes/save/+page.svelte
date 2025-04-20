@@ -1,21 +1,18 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { db } from '$lib/firebase';
+	import { error } from '@sveltejs/kit';
 	import { doc, getDoc, setDoc } from 'firebase/firestore';
-	import { onMount } from 'svelte';
-	import { get } from 'svelte/store';
-	import { page } from '$app/stores';
 
-	let isActive = false;
+
 	let docId = '';
-	let retrievedText = '';
-	let copybutton = 'copy text';
 	let status = '';
 
 	async function save() {
 		if (!text) {
 			alert('Please enter text.');
-			return;
+			docId = "error, try again"
+			return
 		}
 		status = 'saving';
 
@@ -35,11 +32,16 @@
 	}
 
 	let showPopup = false;
+	let showPopup2 = false;
 	let qrUrl = '';
 
 	function togglePopup() {
 		qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=https://dev-quicktransfer.vercel.app/load?Id=${docId}&size=15000x15000`;
 		showPopup = !showPopup;
+	}
+
+	function togglePopup2() {
+		showPopup2 = !showPopup2;
 	}
 
 	let isExpanded = false;
@@ -85,23 +87,16 @@
 	<button on:click={() => (isExpanded = !isExpanded)} class="copyBtn">
 		{isExpanded ? 'Collapse' : 'Expand'}
 	</button>
-	{#if docId.length > 0}
+	{#if docId.length > 0 && docId.length < 6}
 		<button on:click={togglePopup} class="copyBtn">Qr code</button>
 	{/if}
 	<textarea bind:value={text} class:is-expanded={isExpanded} placeholder="Type something..."
 	></textarea>
 	<h3>{status}</h3>
-	<button on:click={save}>Save</button>
+	<button on:click={() => { save(); togglePopup2(); }}>Save</button>
 
 
 
-
-	{#if docId.length > 0}
-	<div class="appears">
-		<h1>Your shareable ID is: </h1>
-		<h1 class="ID">{docId}</h1>
-	</div>
-	{/if}
 
 	{#if showPopup}
 		<div
@@ -109,8 +104,7 @@
 			role="button"
 			tabindex="0"
 			on:click={togglePopup}
-			on:keydown={(e) => e.key === 'Enter' && togglePopup()}
-		>
+			on:keydown={(e) => e.key === 'Enter' && togglePopup()}>
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_interactive_supports_focus -->
 			<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
@@ -122,4 +116,22 @@
 			</div>
 		</div>
 	{/if}
+	{#if showPopup2}
+	<div
+		class="popup-overlay"
+		role="button"
+		tabindex="0"
+		on:click={togglePopup2}
+		on:keydown={(e) => e.key === 'Enter' && togglePopup2()}>
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_interactive_supports_focus -->
+		<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
+			<div class="appears">
+				<h1>Your shareable ID is: </h1>
+				<h1 class="ID">{docId}</h1>
+			</div>
+			<button on:click={togglePopup2}>Close</button>
+		</div>
+	</div>
+{/if}
 </main>
