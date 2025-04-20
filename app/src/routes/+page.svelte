@@ -3,9 +3,7 @@
 	import { db } from '$lib/firebase';
 	import { collection, getDocs, query, where, deleteDoc } from 'firebase/firestore';
 	async function checkDocs() {
-		if (typeof window !== 'undefined' && localStorage.getItem('visited') === 'true') {
-			return;
-		}
+		
 		if (typeof window !== 'undefined') {
 			localStorage.setItem('visited', 'true');
 		}
