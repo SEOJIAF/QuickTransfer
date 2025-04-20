@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.css';
-	import { goto } from "$app/navigation";
+	import { goto } from '$app/navigation';
 	let { children } = $props();
 </script>
 
@@ -8,10 +8,8 @@
 <!-- svelte-ignore event_directive_deprecated -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 
-
 {@render children()}
 <title>QuickTransfer</title>
 
 <style>
-
 </style>
