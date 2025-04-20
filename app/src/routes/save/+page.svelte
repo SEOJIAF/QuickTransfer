@@ -1,10 +1,15 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { db } from '$lib/firebase';
-	import { doc, setDoc } from 'firebase/firestore';
+	import { doc, getDoc,setDoc } from 'firebase/firestore';
+	import { onMount } from 'svelte';
+	import { get } from 'svelte/store';
+	import { page } from '$app/stores';
 
 	let isActive = false;
 	let docId = '';
+	let retrievedText = '';
+	let copybutton = 'copy text';
 
 	async function save() {
 		if (!text) {
@@ -24,12 +29,62 @@
 			expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000)
 		});
 
-		alert('Text saved!');
+		const docRef = doc(db, 'texts', docId);
+		const docSnap = await getDoc(docRef);
+
+		if (docSnap.exists()) {
+				goto(`?Id=${docId}`, { replaceState: true });
+			} else {
+				alert('No text found.');
+			}
+
+	}
+
+
+
+
+
+
+	let showPopup = false;
+	let qrUrl = '';
+
+
+	function togglePopup() {
+		qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${get(page).url}&size=15000x15000`;
+		showPopup = !showPopup;
 	}
 
 	let isExpanded = false;
 	let text = '';
+
+
+	onMount(async () => {
+		const $page = get(page); // use get() to read the store synchronously
+		const code = $page.url.searchParams.get('Id');
+
+		if (code) {
+			const docRef = doc(db, 'texts', code);
+			const docSnap = await getDoc(docRef);
+
+			if (docSnap.exists()) {
+				retrievedText = docSnap.data().content;
+				docId = code; // Optional: fill in the input with the loaded ID
+			} else {
+				alert('No text found.');
+			}
+		} else {
+			console.log("No 'Id' in URL");
+		}
+	});
+
+
+
 </script>
+
+
+
+
+
 
 <header class="top-bar">
 	<div class="arrow">
@@ -72,8 +127,30 @@
 	<button on:click={() => (isExpanded = !isExpanded)} class="copyBtn">
 		{isExpanded ? 'Collapse' : 'Expand'}
 	</button>
+	<button on:click={togglePopup} class="copyBtn">Qr code</button>
 
 	{#if docId.length > 0}
 		<h1>{docId}</h1>
 	{/if}
+
+
+	{#if showPopup}
+	<div
+		class="popup-overlay"
+		role="button"
+		tabindex="0"
+		on:click={togglePopup}
+		on:keydown={(e) => e.key === 'Enter' && togglePopup()}
+	>
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_interactive_supports_focus -->
+		<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
+			<h2 class="poptext2">Qr code</h2>
+			<p class="poptext">Scan to share.</p>
+			<img src={qrUrl} alt="s" class="qr" />
+			<p></p>
+			<button on:click={togglePopup}>Close</button>
+		</div>
+	</div>
+{/if}
 </main>

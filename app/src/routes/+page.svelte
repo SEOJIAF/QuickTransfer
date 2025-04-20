@@ -2,6 +2,8 @@
 	import { goto } from '$app/navigation';
 	import { db } from '$lib/firebase';
 	import { collection, getDocs, query, where, deleteDoc } from 'firebase/firestore';
+
+	
 	async function checkDocs() {
 		
 		if (typeof window !== 'undefined') {
