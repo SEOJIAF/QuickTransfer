@@ -31,15 +31,6 @@
 			expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000)
 		});
 
-		const docRef = doc(db, 'texts', docId);
-		const docSnap = await getDoc(docRef);
-
-		if (docSnap.exists()) {
-			goto(`?Id=${docId}`, { replaceState: true });
-		} else {
-			alert('No text found.');
-		}
-
 		status = 'saved';
 	}
 
@@ -54,24 +45,6 @@
 	let isExpanded = false;
 	let text = '';
 
-	onMount(async () => {
-		const $page = get(page); // use get() to read the store synchronously
-		const code = $page.url.searchParams.get('Id');
-
-		if (code) {
-			const docRef = doc(db, 'texts', code);
-			const docSnap = await getDoc(docRef);
-
-			if (docSnap.exists()) {
-				retrievedText = docSnap.data().content;
-				docId = code; // Optional: fill in the input with the loaded ID
-			} else {
-				alert('No text found.');
-			}
-		} else {
-			console.log("No 'Id' in URL");
-		}
-	});
 </script>
 
 <header class="top-bar">
@@ -106,20 +79,28 @@
 <main class="container">
 	<h1>Save Text</h1>
 
-	<button on:click={save}>Save</button>
+	
 	<!-- Always render the textarea, just toggle its size -->
-
-	<textarea bind:value={text} class:is-expanded={isExpanded} placeholder="Type something..."
-	></textarea>
-	<h3>{status}</h3>
-
+	<p></p>
 	<button on:click={() => (isExpanded = !isExpanded)} class="copyBtn">
 		{isExpanded ? 'Collapse' : 'Expand'}
 	</button>
-	<button on:click={togglePopup} class="copyBtn">Qr code</button>
+	{#if docId.length > 0}
+		<button on:click={togglePopup} class="copyBtn">Qr code</button>
+	{/if}
+	<textarea bind:value={text} class:is-expanded={isExpanded} placeholder="Type something..."
+	></textarea>
+	<h3>{status}</h3>
+	<button on:click={save}>Save</button>
+
+
+
 
 	{#if docId.length > 0}
-		<h1>{docId}</h1>
+	<div class="appears">
+		<h1>Your shareable ID is: </h1>
+		<h1 class="ID">{docId}</h1>
+	</div>
 	{/if}
 
 	{#if showPopup}
