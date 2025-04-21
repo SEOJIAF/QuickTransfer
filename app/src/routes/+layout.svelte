@@ -10,4 +10,4 @@
 
 {@render children()}
 <title>QuickTransfer</title>
-<link rel="icon" type="image/x-icon" href="/favicon1.ico">
+<link rel="icon" type="image/x-icon" sizes="32x32" href="/newlogo.ico">
