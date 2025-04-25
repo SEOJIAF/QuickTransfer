@@ -39,6 +39,7 @@
 		status = 'saved';
 	}
 
+	// :)
 	let showPopup = false;
 	let showPopup2 = false;
 	let qrUrl = '';
