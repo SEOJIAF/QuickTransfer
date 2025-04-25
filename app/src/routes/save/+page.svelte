@@ -30,29 +30,23 @@
 
 		docId = Math.floor(Math.random() * 10000 + 1000).toString();
 
-		const docRef = doc(db, 'texts', docId);
-		const docSnap = await getDoc(docRef);
 
-
-		function check(){
-			if (docSnap.exists()) {
-			docId = "error, try again";
-			return;
-			}
+		const docSnap = await getDoc(doc(db, 'texts', docId));
+		if (docSnap.exists()) {
+		docId = "error, try again";
+		return;
 		}
 
 
 		if (docId.length > 4){
-			docId = "error, try again";
+			
 			return 
 		}
 
-
 		await setDoc(doc(db, 'texts', docId), {
 			content: text,
+			expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000)
 		});
-
-
 		previous_text = text
 		status = 'saved';
 	}
