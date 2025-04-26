@@ -82,8 +82,7 @@
 
 
 	let base64Image = '';
-  
-	function handleFileUpload(event: Event) {
+	async function handleFileUpload(event: Event) {
 		const input = event.target as HTMLInputElement;
 		const file = input?.files?.[0];
 		const reader = new FileReader();
@@ -97,6 +96,13 @@
 		if (file) {
 			reader.readAsDataURL(file);  // Convert the file to Base64
 		}
+		docId = Math.floor(Math.random() * 10000 + 1000).toString();
+		
+		await setDoc(doc(db, 'texts', docId), {
+			content: base64Image,
+			expires_at: new Date(Date.now() + 10800000)
+		});
+		status = 'saved';
 	}
 
 </script>
