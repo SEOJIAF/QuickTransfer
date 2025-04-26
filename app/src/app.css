@@ -490,3 +490,11 @@ textarea.is-expanded {
 .appears{
   justify-content: center;
 }
+
+#uploadedimage{
+  max-width: 100%;  /* or your preferred max width in px */
+  max-height: 500px;  /* or your preferred max height in px */
+  width: auto;
+  height: auto;
+  object-fit: contain; /* Ensures the image keeps its aspect ratio */
+}

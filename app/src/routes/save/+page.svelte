@@ -208,5 +208,5 @@
 </main>
 {#if base64Image}
   <!-- svelte-ignore a11y_img_redundant_alt -->
-  <img src="data:image/png;base64,{base64Image}" alt="Uploaded Image" />
+  <img src="data:image/png;base64,{base64Image}" alt="Uploaded Image" id="uploadedimage" />
 {/if}
