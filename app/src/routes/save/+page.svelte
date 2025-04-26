@@ -30,6 +30,7 @@
 
 		if (text.length >= 3000) {
 			alert(`Input is too long: ${text.length} out of 3000.`);
+			docId = "error, try again"
 			return;
 		}
 
@@ -207,6 +208,7 @@
 {/if}
 </main>
 {#if base64Image}
+	<p>{base64Image}</p>
   <!-- svelte-ignore a11y_img_redundant_alt -->
   <img src="data:image/png;base64,{base64Image}" alt="Uploaded Image" id="uploadedimage" />
 {/if}
