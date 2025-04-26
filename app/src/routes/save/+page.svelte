@@ -1,12 +1,17 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import { db } from '$lib/firebase';
+	// @ts-ignore
 	import { error } from '@sveltejs/kit';
 	import { doc, getDoc, setDoc } from 'firebase/firestore';
+	// @ts-ignore
+	import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 	let previous_text = "";
 	let docId = '';
 	let status = '';
+	// @ts-ignore
+	let files: FileList | null = null;
 
 	async function save() {
 		if (!text) {
@@ -39,7 +44,6 @@
 
 
 		if (docId.length > 4){
-			
 			return 
 		}
 
@@ -54,6 +58,7 @@
 	// :)
 	let showPopup = false;
 	let showPopup2 = false;
+	let showPopup3 = false;
 	let qrUrl = '';
 
 	function togglePopup() {
@@ -67,6 +72,31 @@
 
 	let isExpanded = false;
 	let text = '';
+
+
+	function togglePopup3() {
+		showPopup3 = !showPopup3;
+	}
+
+
+
+	let base64Image = '';
+  
+	function handleFileUpload(event: Event) {
+		const input = event.target as HTMLInputElement;
+		const file = input?.files?.[0];
+		const reader = new FileReader();
+	
+		reader.onloadend = function () {
+			if (reader.result && typeof reader.result === 'string') {
+				base64Image = reader.result.split(',')[1];  // Get the Base64 part after the comma
+			}
+		};
+	
+		if (file) {
+			reader.readAsDataURL(file);  // Convert the file to Base64
+		}
+	}
 
 </script>
 
@@ -115,6 +145,8 @@
 	></textarea>
 	<h3>{status}</h3>
 	<button on:click={() => { save(); togglePopup2(); }}>Save</button>
+	<p>or</p>
+	<button on:click={() => { togglePopup3(); }}>Upload Image</button>
 
 
 
@@ -138,21 +170,43 @@
 		</div>
 	{/if}
 	{#if showPopup2}
+		<div
+			class="popup-overlay"
+			role="button"
+			tabindex="0"
+			on:click={togglePopup2}
+			on:keydown={(e) => e.key === 'Enter' && togglePopup2()}>
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<!-- svelte-ignore a11y_interactive_supports_focus -->
+			<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
+				<div class="appears">
+					<h1>Your shareable ID is: </h1>
+					<h1 class="ID">{docId}</h1>
+				</div>
+				<button on:click={togglePopup2}>Close</button>
+			</div>
+		</div>
+	{/if}
+	{#if showPopup3}
 	<div
 		class="popup-overlay"
 		role="button"
 		tabindex="0"
-		on:click={togglePopup2}
-		on:keydown={(e) => e.key === 'Enter' && togglePopup2()}>
+		on:click={togglePopup3}
+		on:keydown={(e) => e.key === 'Enter' && togglePopup3()}>
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<!-- svelte-ignore a11y_interactive_supports_focus -->
 		<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
 			<div class="appears">
-				<h1>Your shareable ID is: </h1>
-				<h1 class="ID">{docId}</h1>
+				<h1>Upload your image</h1>
+				<label for="image"></label>
+				<input type="file" accept="image/*" on:change="{handleFileUpload}" />
 			</div>
-			<button on:click={togglePopup2}>Close</button>
 		</div>
 	</div>
 {/if}
 </main>
+{#if base64Image}
+  <!-- svelte-ignore a11y_img_redundant_alt -->
+  <img src="data:image/png;base64,{base64Image}" alt="Uploaded Image" />
+{/if}
