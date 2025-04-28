@@ -86,4 +86,13 @@
 		<footer class="footer-wave"></footer>
 		{/if}
 
+		{#if is_on_phone ==true}
+		<div class="feetmobile">
+			<a href="https://github.com/SEOJIAF/QuickSync/issues" target="_blank" class="downtext">Feedback</a>
+			<a href="https://example.com/sponsor">How it works</a>
+			<a href="https://example.com/sponsor">GitHub</a>
+		</div>
+		<footer class="footer-wave"></footer>
+		{/if}
+
 </main>
