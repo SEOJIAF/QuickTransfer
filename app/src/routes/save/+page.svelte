@@ -5,7 +5,7 @@
 	import { doc, getDoc, setDoc } from 'firebase/firestore';
 	// @ts-ignore
 
-	let previous_text = "";
+	let previous_text = '';
 	let docId = '';
 	let status = '';
 	// @ts-ignore
@@ -14,43 +14,40 @@
 	async function save() {
 		if (!text) {
 			alert('Please enter text.');
-			docId = "error, try again"
-			return
+			docId = 'error, try again';
+			return;
 		}
 		status = 'saving';
 
-
-		if (previous_text == text){
-			status = "you already saved this message with " + docId
-			togglePopup2()
-			return
+		if (previous_text == text) {
+			status = 'you already saved this message with ' + docId;
+			togglePopup2();
+			return;
 		}
 
 		if (text.length >= 3000) {
 			alert(`Input is too long: ${text.length} out of 3000.`);
-			docId = "error, try again"
+			docId = 'error, try again';
 			return;
 		}
 
 		docId = Math.floor(Math.random() * 10000 + 1000).toString();
 
-
 		const docSnap = await getDoc(doc(db, 'texts', docId));
 		if (docSnap.exists()) {
-		docId = "error, try again";
-		return;
+			docId = 'error, try again';
+			return;
 		}
 
-
-		if (docId.length > 4){
-			return 
+		if (docId.length > 4) {
+			return;
 		}
 
 		await setDoc(doc(db, 'texts', docId), {
 			content: text,
 			expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000)
 		});
-		previous_text = text
+		previous_text = text;
 		status = 'saved';
 	}
 
@@ -70,8 +67,6 @@
 
 	let isExpanded = false;
 	let text = '';
-
-
 </script>
 
 <header class="top-bar">
@@ -106,7 +101,6 @@
 <main class="container">
 	<h1>Save Text</h1>
 
-	
 	<!-- Always render the textarea, just toggle its size -->
 	<p></p>
 	<button on:click={() => (isExpanded = !isExpanded)} class="copyBtn">
@@ -118,10 +112,12 @@
 	<textarea bind:value={text} class:is-expanded={isExpanded} placeholder="Type something..."
 	></textarea>
 	<h3>{status}</h3>
-	<button on:click={() => { save(); togglePopup2(); }}>Save</button>
-
-
-
+	<button
+		on:click={() => {
+			save();
+			togglePopup2();
+		}}>Save</button
+	>
 
 	{#if showPopup}
 		<div
@@ -129,7 +125,8 @@
 			role="button"
 			tabindex="0"
 			on:click={togglePopup}
-			on:keydown={(e) => e.key === 'Enter' && togglePopup()}>
+			on:keydown={(e) => e.key === 'Enter' && togglePopup()}
+		>
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_interactive_supports_focus -->
 			<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
@@ -147,12 +144,13 @@
 			role="button"
 			tabindex="0"
 			on:click={togglePopup2}
-			on:keydown={(e) => e.key === 'Enter' && togglePopup2()}>
+			on:keydown={(e) => e.key === 'Enter' && togglePopup2()}
+		>
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_interactive_supports_focus -->
 			<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
 				<div class="appears">
-					<h1>Your shareable ID is: </h1>
+					<h1>Your shareable ID is:</h1>
 					<h1 class="ID">{docId}</h1>
 				</div>
 				<button on:click={togglePopup2}>Close</button>

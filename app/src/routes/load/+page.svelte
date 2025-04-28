@@ -32,16 +32,16 @@
 
 	async function load() {
 		if (!docId) {
-        alert("Enter a text ID.");
-        return;
-      }
-  
-      const docRef = doc(db, "texts", docId);
-      const docSnap = await getDoc(docRef);
-  
-	  if (docSnap.exists()) {
-		retrievedText = docSnap.data().content;
-	  }
+			alert('Enter a text ID.');
+			return;
+		}
+
+		const docRef = doc(db, 'texts', docId);
+		const docSnap = await getDoc(docRef);
+
+		if (docSnap.exists()) {
+			retrievedText = docSnap.data().content;
+		}
 	}
 
 	function copytext() {
@@ -52,7 +52,6 @@
 			copybutton = 'error';
 		}
 	}
-
 </script>
 
 <header class="top-bar">
@@ -96,5 +95,4 @@
 	<button on:click={copytext} class="copyBtn">{copybutton}</button>
 	<!-- <button on:click={makeQr} class="copyBtn">Qr code</button> -->
 	<pre class="retrieved">{retrievedText}</pre>
-
 </main>

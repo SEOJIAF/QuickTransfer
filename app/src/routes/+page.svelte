@@ -3,8 +3,8 @@
 	import { db } from '$lib/firebase';
 	import { collection, getDocs, query, where, deleteDoc } from 'firebase/firestore';
 
-		function isMobile() {
-	return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+	function isMobile() {
+		return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 	}
 
 	let is_on_phone = false;
@@ -15,10 +15,7 @@
 		is_on_phone = false;
 	}
 
-
-
 	async function checkDocs() {
-		
 		if (typeof window !== 'undefined') {
 			localStorage.setItem('visited', 'true');
 		}
@@ -73,13 +70,12 @@
 			</div>
 		</div>
 		{#if is_on_phone == false}
-				<div class="hero-image">
-					<img src="\logonew.png" alt="network graphic" />
-				</div>
-			
+			<div class="hero-image">
+				<img src="\logonew.png" alt="network graphic" />
+			</div>
 		{/if}
 	</main>
-		{#if is_on_phone ==false}
+	{#if is_on_phone == false}
 		<div class="feet">
 			<p class="downtext">Secure. Encrypted. Private.</p>
 			<a href="https://github.com/SEOJIAF/QuickSync/issues" target="_blank" class="downtext"
@@ -87,14 +83,16 @@
 			>
 		</div>
 		<footer class="footer-wave"></footer>
-		{/if}
+	{/if}
 
-		{#if is_on_phone ==true}
+	{#if is_on_phone == true}
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<!-- svelte-ignore a11y_missing_attribute -->
 		<div class="feetmobile">
-			<a href="https://github.com/SEOJIAF/QuickSync/issues" target="_blank" class="downtextmobile">Feedback</a>
+			<a href="https://github.com/SEOJIAF/QuickSync/issues" target="_blank" class="downtextmobile"
+				>Feedback</a
+			>
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<!-- svelte-ignore a11y_missing_attribute -->
@@ -102,6 +100,5 @@
 			<a href="https://github.com/SEOJIAF/QuickTransfer" class="downtextmobile">GitHub</a>
 		</div>
 		<footer class="footer-wave"></footer>
-		{/if}
-
+	{/if}
 </main>

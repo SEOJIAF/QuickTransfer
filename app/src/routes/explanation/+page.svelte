@@ -1,8 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
-  let showDetails = false;
+	let showDetails = false;
 </script>
-
 
 <header class="top-bar">
 	<div class="arrow">
@@ -33,36 +32,32 @@
 	</div>
 </header>
 
-
 <main class="container">
-<h1>Welcome to QuickShare</h1>
-<p>It works, but sometimes it does not :(</p>
-
+	<h1>Welcome to QuickShare</h1>
+	<p>It works, but sometimes it does not :(</p>
 </main>
 
-
-
 <style>
-.container {
-  max-width: 600px;
-  margin: 2rem auto;
-  text-align: center;
-  font-family: 'Kanit', sans-serif;
-  padding: 2rem;
-  background: #222;
-  border-radius: 12px;
-  color: #eee;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
+	.container {
+		max-width: 600px;
+		margin: 2rem auto;
+		text-align: center;
+		font-family: 'Kanit', sans-serif;
+		padding: 2rem;
+		background: #222;
+		border-radius: 12px;
+		color: #eee;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	}
 
-h1 {
-  font-size: 2.5rem;
-  color: #00cfe8;
-  margin-bottom: 1rem;
-}
+	h1 {
+		font-size: 2.5rem;
+		color: #00cfe8;
+		margin-bottom: 1rem;
+	}
 
-p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
+	p {
+		font-size: 1.2rem;
+		margin-bottom: 2rem;
+	}
 </style>
