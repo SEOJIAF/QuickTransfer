@@ -60,7 +60,7 @@
 		</div>
 	</header>
 
-	<div class="hero">
+	<main class="hero">
 		<div class="hero-text">
 			<h1>Share text across devices</h1>
 			<p>Paste and transfer text instantly—no apps, no accounts</p>
@@ -75,7 +75,7 @@
 				</div>
 			
 		{/if}
-	</div>
+	</main>
 		{#if is_on_phone ==false}
 		<div class="feet">
 			<p class="downtext">Secure. Encrypted. Private.</p>
