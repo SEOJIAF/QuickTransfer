@@ -53,8 +53,8 @@
 			⚡ QuickTransfer <span class="version">v1.0</span>
 		</div>
 		<div class="nav-div">
-			<nav class="nav-links"></nav>
-			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<nav class="nav-links">
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<!-- svelte-ignore a11y_missing_attribute -->
 				<a on:click={() => goto('/explanation')} class="downtextmobile">How it works</a>
