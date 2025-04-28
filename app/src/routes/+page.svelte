@@ -3,7 +3,20 @@
 	import { db } from '$lib/firebase';
 	import { collection, getDocs, query, where, deleteDoc } from 'firebase/firestore';
 
-	
+		function isMobile() {
+	return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+	}
+
+	let is_on_phone = false;
+
+	if (isMobile()) {
+		is_on_phone = true;
+	} else {
+		is_on_phone = false;
+	}
+
+
+
 	async function checkDocs() {
 		
 		if (typeof window !== 'undefined') {
