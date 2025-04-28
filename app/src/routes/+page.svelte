@@ -50,7 +50,7 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<header class="top-bar">
 		<div class="logo" on:click={() => goto('/')}>
-			⚡ QuickTransfer <span class="version">v1.0</span>
+			⚡ QuickTransfer <span class="version">v1.1</span>
 		</div>
 		<div class="nav-div">
 			<nav class="nav-links">
