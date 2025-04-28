@@ -317,6 +317,16 @@ align-items: center;
 justify-content: center;
 text-decoration: none;
 }
+
+.downtextmobile{
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: #b1b1b1;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
 .feet{
 margin: 0px 4rem;
 display: flex;
@@ -505,7 +515,6 @@ object-fit: contain; /* Ensures the image keeps its aspect ratio */
 
 body {
   font-size: 0.95rem;
-  padding: 0 1rem;
 }
 
 .top-bar {
