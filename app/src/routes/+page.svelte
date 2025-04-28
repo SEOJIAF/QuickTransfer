@@ -99,7 +99,7 @@
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<!-- svelte-ignore a11y_missing_attribute -->
 			<a on:click={() => goto('/explanation')} class="downtextmobile">How it works</a>
-			<a href="https://example.com/sponsor" class="downtextmobile">GitHub</a>
+			<a href="https://github.com/SEOJIAF/QuickTransfer" class="downtextmobile">GitHub</a>
 		</div>
 		<footer class="footer-wave"></footer>
 		{/if}
