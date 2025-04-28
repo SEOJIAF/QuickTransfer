@@ -53,8 +53,11 @@
 			⚡ QuickTransfer <span class="version">v1.0</span>
 		</div>
 		<div class="nav-div">
-			<nav class="nav-links">
-				<a href="https://example.com/sponsor">How it works</a>
+			<nav class="nav-links"></nav>
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<!-- svelte-ignore a11y_missing_attribute -->
+				<a on:click={() => goto('/explanation')} class="downtextmobile">How it works</a>
 				<a href="https://example.com/sponsor">GitHub</a>
 			</nav>
 		</div>
@@ -87,9 +90,15 @@
 		{/if}
 
 		{#if is_on_phone ==true}
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<!-- svelte-ignore a11y_missing_attribute -->
 		<div class="feetmobile">
 			<a href="https://github.com/SEOJIAF/QuickSync/issues" target="_blank" class="downtextmobile">Feedback</a>
-			<a href="https://example.com/sponsor" class="downtextmobile">How it works</a>
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<!-- svelte-ignore a11y_missing_attribute -->
+			<a on:click={() => goto('/explanation')} class="downtextmobile">How it works</a>
 			<a href="https://example.com/sponsor" class="downtextmobile">GitHub</a>
 		</div>
 		<footer class="footer-wave"></footer>
