@@ -69,15 +69,21 @@
 				<button on:click={() => goto('/load')} class="startbutton">Retrieve Text</button>
 			</div>
 		</div>
-		<div class="hero-image">
-			<img src="\logonew.png" alt="network graphic" />
-		</div>
+		{#if is_on_phone == false}
+				<div class="hero-image">
+					<img src="\logonew.png" alt="network graphic" />
+				</div>
+			
+		{/if}
 	</main>
-	<div class="feet">
-		<p class="downtext">Secure. Encrypted. Private.</p>
-		<a href="https://github.com/SEOJIAF/QuickSync/issues" target="_blank" class="downtext"
-			>Feedback</a
-		>
-	</div>
-	<footer class="footer-wave"></footer>
+		{#if is_on_phone ==false}
+		<div class="feet">
+			<p class="downtext">Secure. Encrypted. Private.</p>
+			<a href="https://github.com/SEOJIAF/QuickSync/issues" target="_blank" class="downtext"
+				>Feedback</a
+			>
+		</div>
+		<footer class="footer-wave"></footer>
+		{/if}
+
 </main>
