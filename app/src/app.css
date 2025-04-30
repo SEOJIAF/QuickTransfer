@@ -95,7 +95,8 @@ font-size: 1.7rem;
 .version {
 background-color: #00bcd4;
 color: #20232a;
-font-size: 0.75rem;
+font-size: 0.92rem;
+letter-spacing: 0.05rem;
 padding: 0.2rem 0.4rem;
 margin-left: 0.5rem;
 border-radius: 4px;
