@@ -59,6 +59,7 @@
 	function togglePopup() {
 		qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=https://dev-quicktransfer.vercel.app/load?Id=${docId}&size=15000x15000`;
 		showPopup = !showPopup;
+		showPopup2 = !showPopup2;
 	}
 
 	function togglePopup2() {
@@ -68,6 +69,10 @@
 	let isExpanded = false;
 	let text = '';
 </script>
+
+
+
+
 
 <header class="top-bar">
 	<div class="arrow">
@@ -106,9 +111,6 @@
 	<button on:click={() => (isExpanded = !isExpanded)} class="copyBtn">
 		{isExpanded ? 'Collapse' : 'Expand'}
 	</button>
-	{#if docId.length > 0 && docId.length < 6}
-		<button on:click={togglePopup} class="copyBtn">Qr code</button>
-	{/if}
 	<textarea bind:value={text} class:is-expanded={isExpanded} placeholder="Type something..."
 	></textarea>
 	<h3>{status}</h3>
@@ -152,6 +154,13 @@
 				<div class="appears">
 					<h1>Your shareable ID is:</h1>
 					<h1 class="ID">{docId}</h1>
+				</div>
+				<hr>
+				<p>or</p>
+				
+				<div>
+					<button on:click={togglePopup} class="copyBtn">Qr code</button>
+					<button class="copyBtn" >copy link</button>
 				</div>
 				<button on:click={togglePopup2}>Close</button>
 			</div>
