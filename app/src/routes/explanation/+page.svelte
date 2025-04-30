@@ -27,7 +27,7 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div class="topbefore">
 		<div class="logo" on:click={() => goto('/')}>
-			⚡ QuickTransfer <span class="version">v1.0</span>
+			⚡ QuickTransfer <span class="version">v1.2</span>
 		</div>
 	</div>
 </header>
