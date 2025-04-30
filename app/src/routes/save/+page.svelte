@@ -4,7 +4,7 @@
 	// @ts-ignore
 	import { doc, getDoc, setDoc } from 'firebase/firestore';
 	// @ts-ignore
-
+	let copybutton = "Copy link";
 	let previous_text = '';
 	let docId = '';
 	let status = '';
@@ -51,6 +51,9 @@
 		status = 'saved';
 	}
 
+
+
+
 	// :)
 	let showPopup = false;
 	let showPopup2 = false;
@@ -68,6 +71,17 @@
 
 	let isExpanded = false;
 	let text = '';
+
+
+	function copytext() {
+		try {
+			navigator.clipboard.writeText(`https://dev-quicktransfer.vercel.app/load?Id=${docId}`);
+			copybutton = 'Link copied';
+		} catch (error) {
+			copybutton = 'error';
+		}
+	}
+
 </script>
 
 
@@ -160,7 +174,7 @@
 				
 				<div>
 					<button on:click={togglePopup} class="copyBtn">Qr code</button>
-					<button class="copyBtn" >copy link</button>
+					<button class="copyBtn"  on:click={copytext}>{copybutton}</button>
 				</div>
 				<button on:click={togglePopup2}>Close</button>
 			</div>
