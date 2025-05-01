@@ -13,7 +13,7 @@
 	let lodaded = false;
 
 	onMount(async () => {
-		const $page = get(page); // use get() to read the store synchronously
+		const $page = get(page)
 		const code = $page.url.searchParams.get('Id');
 
 		if (code) {
@@ -22,13 +22,15 @@
 
 			if (docSnap.exists()) {
 				retrievedText = docSnap.data().content;
-				docId = code; // Optional: fill in the input with the loaded ID
+				docId = code; 
+				lodaded = true;
 			} else {
 				alert('No text found.');
 			}
 		} else {
 			console.log("No 'Id' in URL");
 		}
+
 	});
 
 	async function load() {

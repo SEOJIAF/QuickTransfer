@@ -66,7 +66,7 @@
 			<p>Paste and transfer text instantly—no apps, no accounts</p>
 			<div class="btns">
 				<button on:click={() => goto('/save')} class="startbutton">Save Text</button>
-				<button on:click={() => goto('/load')} class="startbutton">Retrieve Text</button>
+				<button on:click={() => goto('/load')} class="startbutton">Load Text</button>
 			</div>
 		</div>
 		{#if is_on_phone == false}
