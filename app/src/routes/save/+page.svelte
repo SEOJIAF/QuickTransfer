@@ -122,18 +122,15 @@
 
 	<!-- Always render the textarea, just toggle its size -->
 	<p></p>
-	<button on:click={() => (isExpanded = !isExpanded)} class="copyBtn">
-		{isExpanded ? 'Collapse' : 'Expand'}
-	</button>
+
 	<textarea bind:value={text} class:is-expanded={isExpanded} placeholder="Type something..."
 	></textarea>
 	<h3>{status}</h3>
-	<button
-		on:click={() => {
-			save();
-			togglePopup2();
-		}}>Save</button
-	>
+	<div class="saveBtns">
+		<button on:click={() => {save();togglePopup2();}}>Save</button>
+		<button on:click={() => (isExpanded = !isExpanded)} class="copyBtn">{isExpanded ? 'Collapse' : 'Expand'}</button>
+	</div>
+
 
 	{#if showPopup}
 		<div
@@ -169,7 +166,6 @@
 					<h1>Your shareable ID is:</h1>
 					<h1 class="ID">{docId}</h1>
 				</div>
-				<hr>
 				<p>or</p>
 				
 				<div>
