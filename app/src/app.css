@@ -96,7 +96,7 @@ font-size: 1.7rem;
 background-color: #00bcd4;
 color: #20232a;
 font-size: 0.92rem;
-letter-spacing: 0.05rem;
+letter-spacing: 0.05frem;
 padding: 0.2rem 0.4rem;
 margin-left: 0.5rem;
 border-radius: 4px;
@@ -384,6 +384,7 @@ color: #e0e0e0;
 .copyBtn{
   background-color: #333;
   color: #ccc;
+  border: 1px solid #444;
 }
 .copyBtn:hover{
   transition: ease-in-out 0.1s;
@@ -616,4 +617,9 @@ button {
 .feetmobile {
   display: flex;
   justify-content: space-evenly;
+}
+
+.saveBtns{
+  display: flex;
+  justify-content: space-between;
 }
