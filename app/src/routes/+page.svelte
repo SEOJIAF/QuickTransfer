@@ -46,9 +46,6 @@
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<header class="top-bar">
-		<div class="logo" on:click={() => goto('/')}>
-			⚡ QuickTransfer <span class="version">v1.2</span>
-		</div>
 		<div class="nav-div">
 			<nav class="nav-links">
 				<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -57,6 +54,9 @@
 				<a on:click={() => goto('/explanation')} class="downtextmobile">How it works</a>
 				<a href="https://github.com/SEOJIAF/QuickTransfer">GitHub</a>
 			</nav>
+		</div>
+		<div class="logo" on:click={() => goto('/')}>
+			⚡ QuickTransfer <span class="version">v1.2</span>
 		</div>
 	</header>
 
