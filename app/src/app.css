@@ -210,20 +210,6 @@ textarea:focus {
 border-color: #00bcd4;
 }
 
-input[type="file"] {
-background-color: #333;
-border: 1px solid #444;
-color: #e0e0e0;
-padding: 1rem;
-font-size: 1rem;
-border-radius: 8px;
-width: 100%;
-margin: 1rem 0;
-}
-
-input[type="file"]:focus {
-border-color: #00bcd4;
-}
 
 button {
 background-color: #00bcd4;
@@ -234,7 +220,7 @@ font-size: 1rem;
 border-radius: 6px;
 cursor: pointer;
 transition: background-color 0.3s ease;
-margin: 1rem 1rem;
+margin: 1rem 0rem;
 }
 
 button:hover {
@@ -335,7 +321,7 @@ justify-content: space-between;
 }
 /* From Uiverse.io by bedirhan-arslan */ 
 .formField {
-margin: 10px;
+margin: 0px;
 position: relative;
 margin-top: 2rem;
 
@@ -354,6 +340,7 @@ transition: 0.3s ease-in-out;
 box-shadow: 0 0 0 5px transparent;
 border: 1px solid  #00ffff;
 color: #e0e0e0;
+margin: 0px;
 }
 
 .formField input:hover,
@@ -622,4 +609,10 @@ button {
 .saveBtns{
   display: flex;
   justify-content: space-between;
+}
+.retriev{
+  font-family: "Kanit", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }

@@ -10,6 +10,7 @@
 	let retrievedText = '';
 	let copybutton = 'copy text';
 	let qrUrl = '';
+	let lodaded = false;
 
 	onMount(async () => {
 		const $page = get(page); // use get() to read the store synchronously
@@ -42,6 +43,7 @@
 		if (docSnap.exists()) {
 			retrievedText = docSnap.data().content;
 		}
+		lodaded = true;
 	}
 
 	function copytext() {
@@ -91,8 +93,12 @@
 
 	<p></p>
 	<button on:click={load}>Load</button>
-	<p>Retrieved Text</p>
-	<button on:click={copytext} class="copyBtn">{copybutton}</button>
-	<!-- <button on:click={makeQr} class="copyBtn">Qr code</button> -->
-	<pre class="retrieved">{retrievedText}</pre>
+
+	{#if (lodaded == true)}
+		<hr>
+		<p class="retriev">Retrieved Text</p>
+		<!-- <button on:click={makeQr} class="copyBtn">Qr code</button> -->
+		<pre class="retrieved">{retrievedText}</pre>
+		<button on:click={copytext} class="copyBtn">{copybutton}</button>
+	{/if}
 </main>
