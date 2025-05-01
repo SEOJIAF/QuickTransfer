@@ -138,8 +138,7 @@
 			role="button"
 			tabindex="0"
 			on:click={togglePopup}
-			on:keydown={(e) => e.key === 'Enter' && togglePopup()}
-		>
+			on:keydown={(e) => e.key === 'Enter' && togglePopup()}>
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_interactive_supports_focus -->
 			<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
