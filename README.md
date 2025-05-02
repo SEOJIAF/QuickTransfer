@@ -12,7 +12,7 @@
 
 - ☁️ **Firebase-Powered** – Fast uploads with scalable, secure cloud storage.
 - 🌐 **Fully Online** – Works anywhere with internet access.
-- 🕶️ ** Dark Mode** – Because light mode is terrible.
+- 🕶️ **Dark Mode** – Because light mode is terrible.
 - 🧹 **Auto-Cleanup** – Expiring links to keep storage clean.
 
 ---
