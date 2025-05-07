@@ -53,6 +53,7 @@
 				<!-- svelte-ignore a11y_missing_attribute -->
 				<a on:click={() => goto('/explanation')} class="downtextmobile">How it works</a>
 				<a href="https://github.com/SEOJIAF/QuickTransfer">GitHub</a>
+				<a href="https://war.ukraine.ua/">Support ukraine 🇺🇦</a>
 			</nav>
 		</div>
 		<div class="logo" on:click={() => goto('/')}>

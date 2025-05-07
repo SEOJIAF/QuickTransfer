@@ -1,6 +1,6 @@
 <script>
-	import { goto } from '$app/navigation';
-	let showDetails = false;
+// @ts-nocheck
+
 </script>
 
 <header class="top-bar">
