@@ -57,7 +57,7 @@
 			</nav>
 		</div>
 		<div class="logo" on:click={() => goto('/')}>
-			⚡ QuickTransfer <span class="version">v1.2</span>
+			⚡ QuickTransfer <span class="version">v1.3</span>
 		</div>
 	</header>
 
