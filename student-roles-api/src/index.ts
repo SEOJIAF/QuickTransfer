@@ -48,9 +48,10 @@ app.post('/students', async ({ body }) => {
       data: student,
     };
   } catch (error: any) {
+    console.error('Create student error:', error);
     return {
       success: false,
-      error: error.message,
+      error: 'Failed to create student',
     };
   }
 });
@@ -59,6 +60,15 @@ app.post('/students', async ({ body }) => {
 app.put('/students/:id', async ({ params, body }) => {
   try {
     const studentId = parseInt(params.id);
+    
+    // Validate that ID is a valid number
+    if (isNaN(studentId) || studentId <= 0) {
+      return {
+        success: false,
+        error: 'Invalid student ID',
+      };
+    }
+    
     const { name, email, primaryRole, secondaryRoles } = body as {
       name?: string;
       email?: string;
@@ -115,9 +125,10 @@ app.put('/students/:id', async ({ params, body }) => {
       data: student,
     };
   } catch (error: any) {
+    console.error('Update student error:', error);
     return {
       success: false,
-      error: error.message,
+      error: 'Failed to update student',
     };
   }
 });
@@ -126,6 +137,14 @@ app.put('/students/:id', async ({ params, body }) => {
 app.delete('/students/:id', async ({ params }) => {
   try {
     const studentId = parseInt(params.id);
+    
+    // Validate that ID is a valid number
+    if (isNaN(studentId) || studentId <= 0) {
+      return {
+        success: false,
+        error: 'Invalid student ID',
+      };
+    }
 
     await prisma.student.delete({
       where: { id: studentId },
@@ -136,9 +155,10 @@ app.delete('/students/:id', async ({ params }) => {
       message: 'Student deleted successfully',
     };
   } catch (error: any) {
+    console.error('Delete student error:', error);
     return {
       success: false,
-      error: error.message,
+      error: 'Failed to delete student',
     };
   }
 });
@@ -158,9 +178,10 @@ app.get('/students', async () => {
       data: students,
     };
   } catch (error: any) {
+    console.error('List students error:', error);
     return {
       success: false,
-      error: error.message,
+      error: 'Failed to retrieve students',
     };
   }
 });
@@ -169,6 +190,14 @@ app.get('/students', async () => {
 app.get('/students/:id', async ({ params }) => {
   try {
     const studentId = parseInt(params.id);
+    
+    // Validate that ID is a valid number
+    if (isNaN(studentId) || studentId <= 0) {
+      return {
+        success: false,
+        error: 'Invalid student ID',
+      };
+    }
 
     const student = await prisma.student.findUnique({
       where: { id: studentId },
@@ -190,9 +219,10 @@ app.get('/students/:id', async ({ params }) => {
       data: student,
     };
   } catch (error: any) {
+    console.error('Get student error:', error);
     return {
       success: false,
-      error: error.message,
+      error: 'Failed to retrieve student',
     };
   }
 });
