@@ -1,0 +1,222 @@
+import { Elysia } from 'elysia';
+import { cors } from '@elysiajs/cors';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+const app = new Elysia();
+
+// Enable CORS
+app.use(cors());
+
+// Create a new student with primary and secondary roles
+app.post('/students', async ({ body }) => {
+  try {
+    const { name, email, primaryRole, secondaryRoles } = body as {
+      name: string;
+      email: string;
+      primaryRole?: string;
+      secondaryRoles?: string[];
+    };
+
+    const student = await prisma.student.create({
+      data: {
+        name,
+        email,
+        primaryRole: primaryRole
+          ? {
+              create: {
+                name: primaryRole,
+              },
+            }
+          : undefined,
+        secondaryRoles: secondaryRoles
+          ? {
+              create: secondaryRoles.map((roleName) => ({
+                name: roleName,
+              })),
+            }
+          : undefined,
+      },
+      include: {
+        primaryRole: true,
+        secondaryRoles: true,
+      },
+    });
+
+    return {
+      success: true,
+      data: student,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+});
+
+// Update an existing student
+app.put('/students/:id', async ({ params, body }) => {
+  try {
+    const studentId = parseInt(params.id);
+    const { name, email, primaryRole, secondaryRoles } = body as {
+      name?: string;
+      email?: string;
+      primaryRole?: string;
+      secondaryRoles?: string[];
+    };
+
+    // First, delete existing primary role and secondary roles if they need to be updated
+    if (primaryRole !== undefined) {
+      await prisma.primaryRole.deleteMany({
+        where: { studentId },
+      });
+    }
+
+    if (secondaryRoles !== undefined) {
+      await prisma.secondaryRole.deleteMany({
+        where: { studentId },
+      });
+    }
+
+    // Update the student with new data
+    const student = await prisma.student.update({
+      where: { id: studentId },
+      data: {
+        ...(name && { name }),
+        ...(email && { email }),
+        ...(primaryRole !== undefined && {
+          primaryRole: primaryRole
+            ? {
+                create: {
+                  name: primaryRole,
+                },
+              }
+            : undefined,
+        }),
+        ...(secondaryRoles !== undefined && {
+          secondaryRoles: secondaryRoles
+            ? {
+                create: secondaryRoles.map((roleName) => ({
+                  name: roleName,
+                })),
+              }
+            : undefined,
+        }),
+      },
+      include: {
+        primaryRole: true,
+        secondaryRoles: true,
+      },
+    });
+
+    return {
+      success: true,
+      data: student,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+});
+
+// Delete a student
+app.delete('/students/:id', async ({ params }) => {
+  try {
+    const studentId = parseInt(params.id);
+
+    await prisma.student.delete({
+      where: { id: studentId },
+    });
+
+    return {
+      success: true,
+      message: 'Student deleted successfully',
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+});
+
+// List all students with their roles
+app.get('/students', async () => {
+  try {
+    const students = await prisma.student.findMany({
+      include: {
+        primaryRole: true,
+        secondaryRoles: true,
+      },
+    });
+
+    return {
+      success: true,
+      data: students,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+});
+
+// Get a single student by ID
+app.get('/students/:id', async ({ params }) => {
+  try {
+    const studentId = parseInt(params.id);
+
+    const student = await prisma.student.findUnique({
+      where: { id: studentId },
+      include: {
+        primaryRole: true,
+        secondaryRoles: true,
+      },
+    });
+
+    if (!student) {
+      return {
+        success: false,
+        error: 'Student not found',
+      };
+    }
+
+    return {
+      success: true,
+      data: student,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+});
+
+// Health check endpoint
+app.get('/', () => ({
+  message: 'Student Management API is running',
+  endpoints: {
+    'POST /students': 'Create a new student',
+    'GET /students': 'List all students',
+    'GET /students/:id': 'Get a student by ID',
+    'PUT /students/:id': 'Update a student',
+    'DELETE /students/:id': 'Delete a student',
+  },
+}));
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🦊 Elysia is running at http://localhost:${PORT}`);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', async () => {
+  await prisma.$disconnect();
+  process.exit(0);
+});
