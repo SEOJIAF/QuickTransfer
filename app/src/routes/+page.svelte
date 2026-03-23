@@ -76,7 +76,7 @@
 		</div>
 		{#if is_on_phone == false}
 			<div class="hero-image">
-				<img src="/logonew.png" alt="QuickTransfer network graphic" />
+				<img src="/logonew.png" alt="Diagram showing text transfer between devices" />
 			</div>
 		{/if}
 	</main>

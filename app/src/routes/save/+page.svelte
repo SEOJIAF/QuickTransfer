@@ -23,8 +23,7 @@
 			const buffer = new Uint32Array(1);
 			crypto.getRandomValues(buffer);
 			const normalized = buffer[0] / 0x100000000;
-			const candidate = Math.floor(normalized * 9000) + 1000;
-			return Math.min(candidate, 9999).toString();
+			return (Math.floor(normalized * 9000) + 1000).toString();
 		}
 		return Math.floor(Math.random() * 9000 + 1000).toString();
 	};
@@ -54,7 +53,7 @@
 			return;
 		}
 
-		status = 'Saving...';
+		status = 'Generating a secure ID...';
 		statusTone = 'info';
 
 		let candidateId = '';
@@ -74,6 +73,9 @@
 		}
 
 		docId = candidateId;
+
+		status = 'Saving...';
+		statusTone = 'info';
 
 		await setDoc(doc(db, 'texts', docId), {
 			content: trimmedText,
@@ -206,6 +208,8 @@
 						src={qrUrl}
 						alt="QR code for your saved text"
 						class="qr"
+						loading="lazy"
+						referrerpolicy="no-referrer"
 						on:error={() => {
 							qrError = true;
 							status = 'QR code could not load. Use the link instead.';

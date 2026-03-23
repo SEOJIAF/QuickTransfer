@@ -33,7 +33,7 @@
 			return;
 		}
 		if (!/^\d{4}$/.test(trimmedId)) {
-			status = 'Enter the 4-digit ID from your save.';
+			status = 'ID must be exactly 4 digits.';
 			statusTone = 'error';
 			loaded = false;
 			return;
