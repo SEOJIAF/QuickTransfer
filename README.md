@@ -37,8 +37,12 @@ git clone https://github.com/SEOJIAF/QuickTransfer
 cd QuickTransfer
 ```
 2. Install Dependencies
-```
-npm install
+
+> **Note:** `node_modules/` is not committed to this repository. Run the install step inside the `app/` directory.
+
+```bash
+cd app
+npm ci
 ```
 3. Set Up Firebase
 
@@ -62,6 +66,7 @@ export const app = initializeApp(firebaseConfig);
 ```
 4. Run the App
 ```bash
+cd app
 npm run dev
 ```
 Open http://localhost:5173 and start uploading text-based files.
@@ -70,15 +75,20 @@ Open http://localhost:5173 and start uploading text-based files.
 ---
 ```
 QuickTransfer/
-├── src/
-│   ├── lib/firebase.js       # Firebase config
-│   ├── routes/+page.svelte   # Main upload/share page
-│   ├── routes/save/+page.svelte # Download page
-│   └── ...
-├── static/                   # Public assets
-├── .env                      # (if using env vars)
-├── README.md
-└── vercel.json               # Vercel config
+├── app/                      # SvelteKit application
+│   ├── src/
+│   │   ├── lib/firebase.js       # Firebase config
+│   │   ├── routes/+page.svelte   # Main upload/share page
+│   │   ├── routes/save/+page.svelte # Download page
+│   │   └── ...
+│   ├── static/                   # Public assets
+│   ├── .env                      # (if using env vars — never commit this)
+│   └── package.json
+├── .github/
+│   ├── workflows/ci.yml          # CI: lint, check, build, audit
+│   └── dependabot.yml            # Automated dependency updates
+├── .gitignore
+└── README.md
 ```
 📦 Deployment
 ---
