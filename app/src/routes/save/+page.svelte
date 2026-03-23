@@ -22,7 +22,8 @@
 		if (typeof crypto !== 'undefined' && 'getRandomValues' in crypto) {
 			const buffer = new Uint32Array(1);
 			crypto.getRandomValues(buffer);
-			return ((buffer[0] % 9000) + 1000).toString();
+			const normalized = buffer[0] / 0x100000000;
+			return (Math.floor(normalized * 9000) + 1000).toString();
 		}
 		return Math.floor(Math.random() * 9000 + 1000).toString();
 	};
@@ -212,7 +213,9 @@
 					/>
 				{/if}
 				{#if qrError}
-					<p class="status-message error">QR code unavailable. Use the share link instead.</p>
+					<p class="status-message error" role="alert">
+						QR code unavailable. Use the share link instead.
+					</p>
 				{/if}
 				<p></p>
 				<button on:click={togglePopup} class="secondary-button">Close</button>

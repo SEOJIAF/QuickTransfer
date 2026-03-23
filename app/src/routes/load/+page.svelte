@@ -110,7 +110,7 @@
 			<input
 				bind:value={docId}
 				inputmode="numeric"
-				autocomplete="one-time-code"
+				autocomplete="off"
 				maxlength="4"
 				placeholder="1234"
 				aria-label="4-digit text ID"
