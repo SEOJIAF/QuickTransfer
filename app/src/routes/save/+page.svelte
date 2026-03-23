@@ -7,7 +7,6 @@
 	let previous_text = '';
 	let docId = '';
 	let status = '';
-	let statusTone = 'neutral';
 
 	const getShareUrl = () => {
 		const origin =
@@ -35,25 +34,21 @@
 
 		if (!trimmedText) {
 			status = 'Add some text to save.';
-			statusTone = 'error';
 			return;
 		}
 
 		if (trimmedText.length > 3000) {
 			status = `Keep it under 3,000 characters. (${trimmedText.length}/3000)`;
-			statusTone = 'error';
 			return;
 		}
 
 		if (previous_text === trimmedText && docId) {
 			status = `Already saved. Your ID is ${docId}.`;
-			statusTone = 'info';
 			showPopup2 = true;
 			return;
 		}
 
 		status = 'Generating a secure ID...';
-		statusTone = 'info';
 
 		let candidateId = '';
 		for (let attempt = 0; attempt < 5; attempt += 1) {
@@ -67,14 +62,12 @@
 
 		if (!candidateId) {
 			status = 'Could not generate a new ID. Please try again.';
-			statusTone = 'error';
 			return;
 		}
 
 		docId = candidateId;
 
 		status = 'Saving...';
-		statusTone = 'info';
 
 		await setDoc(doc(db, 'texts', docId), {
 			content: trimmedText,
@@ -82,7 +75,6 @@
 		});
 		previous_text = trimmedText;
 		status = 'Saved! Share your ID, link, or QR code.';
-		statusTone = 'success';
 		showPopup2 = true;
 	}
 
@@ -95,7 +87,6 @@
 	function togglePopup() {
 		if (!docId) {
 			status = 'Save text first to create a QR code.';
-			statusTone = 'error';
 			return;
 		}
 		qrError = false;
@@ -116,18 +107,15 @@
 	async function copytext() {
 		if (!docId) {
 			status = 'Save text first to generate a link.';
-			statusTone = 'error';
 			return;
 		}
 		try {
 			await navigator.clipboard.writeText(getShareUrl());
 			copybutton = 'Link copied';
 			status = 'Link copied to your clipboard.';
-			statusTone = 'success';
 		} catch {
 			copybutton = 'Copy failed';
 			status = 'Unable to copy the link. Please try again.';
-			statusTone = 'error';
 		}
 	}
 </script>
@@ -162,31 +150,23 @@
 </header>
 
 <main class="container">
-	<div class="page-card">
-		<div class="page-header">
-			<h1>Save Text</h1>
-			<p class="subtitle">Paste your snippet below. It expires in 24 hours.</p>
-		</div>
-		<textarea
-			bind:value={text}
-			class:is-expanded={isExpanded}
-			placeholder="Type or paste something…"
-			maxlength="3000"
-			aria-label="Text to save"
-		></textarea>
-		<div class="helper-row">
-			<span class="helper-text">{text.length}/3000 characters</span>
-			<span class="helper-text">4-digit ID • 24-hour expiry</span>
-		</div>
-		{#if status}
-			<p class={`status-message ${statusTone}`} aria-live="polite">{status}</p>
-		{/if}
-		<div class="button-row">
-			<button on:click={save} class="primary-button">Save</button>
-			<button on:click={() => (isExpanded = !isExpanded)} class="secondary-button">
-				{isExpanded ? 'Collapse' : 'Expand'}
-			</button>
-		</div>
+	<h1>Save Text</h1>
+
+	<p></p>
+
+	<textarea
+		bind:value={text}
+		class:is-expanded={isExpanded}
+		placeholder="Type something..."
+		maxlength="3000"
+		aria-label="Text to save"
+	></textarea>
+	<h3>{status}</h3>
+	<div class="saveBtns">
+		<button on:click={save}>Save</button>
+		<button on:click={() => (isExpanded = !isExpanded)} class="copyBtn"
+			>{isExpanded ? 'Collapse' : 'Expand'}</button
+		>
 	</div>
 
 	{#if showPopup}
@@ -200,8 +180,8 @@
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_interactive_supports_focus -->
 			<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
-				<h2 class="poptext2">QR code</h2>
-				<p class="poptext">Scan to open the link.</p>
+				<h2 class="poptext2">Qr code</h2>
+				<p class="poptext">Scan to share.</p>
 				{#if !qrError}
 					<img
 						src={qrUrl}
@@ -212,17 +192,14 @@
 						on:error={() => {
 							qrError = true;
 							status = 'QR code could not load. Use the link instead.';
-							statusTone = 'error';
 						}}
 					/>
 				{/if}
 				{#if qrError}
-					<p class="status-message error" role="alert">
-						QR code unavailable. Use the share link instead.
-					</p>
+					<p role="alert">QR code unavailable. Use the share link instead.</p>
 				{/if}
 				<p></p>
-				<button on:click={togglePopup} class="secondary-button">Close</button>
+				<button on:click={togglePopup}>Close</button>
 			</div>
 		</div>
 	{/if}
@@ -243,11 +220,11 @@
 				</div>
 				<p>or</p>
 
-				<div class="popup-actions">
-					<button on:click={togglePopup} class="secondary-button">QR code</button>
-					<button class="secondary-button" on:click={copytext}>{copybutton}</button>
+				<div>
+					<button on:click={togglePopup} class="copyBtn">Qr code</button>
+					<button class="copyBtn" on:click={copytext}>{copybutton}</button>
 				</div>
-				<button on:click={togglePopup2} class="primary-button">Close</button>
+				<button on:click={togglePopup2}>Close</button>
 			</div>
 		</div>
 	{/if}
