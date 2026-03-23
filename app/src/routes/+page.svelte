@@ -50,7 +50,6 @@
 				<a href="https://github.com/SEOJIAF/QuickTransfer" target="_blank" rel="noreferrer">
 					GitHub
 				</a>
-				<a href="https://war.ukraine.ua/" target="_blank" rel="noreferrer"> Support Ukraine 🇺🇦 </a>
 			</nav>
 		</div>
 		<div class="logo" on:click={() => goto('/')}>
