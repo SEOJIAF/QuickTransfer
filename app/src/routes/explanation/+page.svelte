@@ -33,25 +33,31 @@
 </header>
 
 <main class="container">
-	<div class="page-card">
-		<div class="page-header">
-			<h1>How QuickTransfer works</h1>
-			<p class="subtitle">Move text between devices in three simple steps.</p>
-		</div>
-		<div class="info-grid">
-			<div class="info-item">
-				<h3>1. Save</h3>
-				<p>Paste up to 3,000 characters and create a temporary entry.</p>
-			</div>
-			<div class="info-item">
-				<h3>2. Share</h3>
-				<p>Use the 4-digit ID, link, or QR code to open it elsewhere.</p>
-			</div>
-			<div class="info-item">
-				<h3>3. Load</h3>
-				<p>Enter the ID on any device to retrieve your text instantly.</p>
-			</div>
-		</div>
-		<p class="info-note">Entries expire automatically after 24 hours for peace of mind.</p>
-	</div>
+	<h1>Welcome to QuickShare</h1>
+	<p>It works, but sometimes it does not :(</p>
 </main>
+
+<style>
+	.container {
+		max-width: 600px;
+		margin: 2rem auto;
+		text-align: center;
+		font-family: 'Kanit', sans-serif;
+		padding: 2rem;
+		background: #222;
+		border-radius: 12px;
+		color: #eee;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		color: #00cfe8;
+		margin-bottom: 1rem;
+	}
+
+	p {
+		font-size: 1.2rem;
+		margin-bottom: 2rem;
+	}
+</style>

@@ -12,7 +12,6 @@
 	let copybutton = 'Copy text';
 	let loaded = false;
 	let status = '';
-	let statusTone = 'neutral';
 
 	onMount(async () => {
 		const $page = get(page);
@@ -29,19 +28,16 @@
 
 		if (!trimmedId) {
 			status = 'Enter a 4-digit ID.';
-			statusTone = 'error';
 			loaded = false;
 			return;
 		}
 		if (!/^\d{4}$/.test(trimmedId)) {
 			status = 'ID must be exactly 4 digits.';
-			statusTone = 'error';
 			loaded = false;
 			return;
 		}
 
 		status = 'Loading...';
-		statusTone = 'info';
 		docId = trimmedId;
 
 		const docRef = doc(db, 'texts', docId);
@@ -51,30 +47,25 @@
 			retrievedText = docSnap.data().content;
 			loaded = true;
 			status = 'Text loaded successfully.';
-			statusTone = 'success';
 		} else {
 			retrievedText = '';
 			loaded = false;
 			status = 'We could not find that ID.';
-			statusTone = 'error';
 		}
 	}
 
 	async function copytext() {
 		if (!retrievedText) {
 			status = 'Load a text first to copy it.';
-			statusTone = 'error';
 			return;
 		}
 		try {
 			await navigator.clipboard.writeText(retrievedText);
 			copybutton = 'Text copied';
 			status = 'Copied to clipboard.';
-			statusTone = 'success';
 		} catch {
 			copybutton = 'Copy failed';
 			status = 'Unable to copy the text. Please try again.';
-			statusTone = 'error';
 		}
 	}
 </script>
@@ -108,34 +99,27 @@
 	</div>
 </header>
 <main class="container">
-	<div class="page-card">
-		<div class="page-header">
-			<h1>Load Text</h1>
-			<p class="subtitle">Enter the 4-digit ID to retrieve your text.</p>
-		</div>
-		<form class="formField" on:submit|preventDefault={load}>
-			<input
-				bind:value={docId}
-				inputmode="numeric"
-				autocomplete="off"
-				maxlength="4"
-				placeholder="1234"
-				aria-label="4-digit text ID"
-			/>
-			<span>ID</span>
-		</form>
-		<div class="button-row">
-			<button on:click={load} class="primary-button">Load</button>
-		</div>
-		{#if status}
-			<p class={`status-message ${statusTone}`} aria-live="polite">{status}</p>
-		{/if}
+	<h1>Load Text</h1>
+	<form class="formField" on:submit|preventDefault={load}>
+		<input
+			bind:value={docId}
+			inputmode="numeric"
+			autocomplete="off"
+			maxlength="4"
+			placeholder="1234"
+			aria-label="4-digit text ID"
+		/>
+		<span>ID</span>
+	</form>
 
-		{#if loaded}
-			<hr />
-			<p class="retriev">Retrieved text</p>
-			<pre class="retrieved">{retrievedText}</pre>
-			<button on:click={copytext} class="secondary-button">{copybutton}</button>
-		{/if}
-	</div>
+	<p></p>
+	<button on:click={load}>Load</button>
+	<h3>{status}</h3>
+
+	{#if loaded}
+		<hr />
+		<p class="retriev">Retrieved Text</p>
+		<pre class="retrieved">{retrievedText}</pre>
+		<button on:click={copytext} class="copyBtn">{copybutton}</button>
+	{/if}
 </main>

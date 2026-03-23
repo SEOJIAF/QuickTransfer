@@ -63,18 +63,9 @@
 			<h1>Share text across devices</h1>
 			<p>Paste and transfer text instantly — no apps, no accounts.</p>
 			<div class="btns">
-				<button on:click={() => goto(resolve('/save'))} class="startbutton primary-button">
-					Save Text
-				</button>
-				<button on:click={() => goto(resolve('/load'))} class="startbutton secondary-button"
-					>Load Text</button
-				>
+				<button on:click={() => goto(resolve('/save'))} class="startbutton">Save Text</button>
+				<button on:click={() => goto(resolve('/load'))} class="startbutton">Retrieve Text</button>
 			</div>
-			<ul class="feature-list">
-				<li><span>1.</span> Save up to 3,000 characters for 24 hours.</li>
-				<li><span>2.</span> Get a 4-digit ID, link, or QR code.</li>
-				<li><span>3.</span> Load it on any device in seconds.</li>
-			</ul>
 		</div>
 		{#if is_on_phone == false}
 			<div class="hero-image">
