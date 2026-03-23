@@ -1,5 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { db } from '$lib/firebase';
 	import { doc, getDoc } from 'firebase/firestore';
 	import { onMount } from 'svelte';
@@ -70,7 +71,7 @@
 			copybutton = 'Text copied';
 			status = 'Copied to clipboard.';
 			statusTone = 'success';
-		} catch (error) {
+		} catch {
 			copybutton = 'Copy failed';
 			status = 'Unable to copy the text. Please try again.';
 			statusTone = 'error';
@@ -84,7 +85,7 @@
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<svg
 			class="goback"
-			on:click={() => goto('/')}
+			on:click={() => goto(resolve('/'))}
 			xmlns="http://www.w3.org/2000/svg"
 			width="25"
 			height="25"
@@ -101,7 +102,7 @@
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div class="topbefore">
-		<div class="logo" on:click={() => goto('/')}>
+		<div class="logo" on:click={() => goto(resolve('/'))}>
 			⚡ QuickTransfer <span class="version">v1.3</span>
 		</div>
 	</div>

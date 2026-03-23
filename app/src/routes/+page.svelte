@@ -1,5 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { db } from '$lib/firebase';
 	import { collection, deleteDoc, getDocs } from 'firebase/firestore';
 	import { onMount } from 'svelte';
@@ -46,13 +47,13 @@
 	<header class="top-bar">
 		<div class="nav-div">
 			<nav class="nav-links">
-				<a href="/explanation" class="downtextmobile">How it works</a>
+				<a href={resolve('/explanation')} class="downtextmobile">How it works</a>
 				<a href="https://github.com/SEOJIAF/QuickTransfer" target="_blank" rel="noreferrer">
 					GitHub
 				</a>
 			</nav>
 		</div>
-		<div class="logo" on:click={() => goto('/')}>
+		<div class="logo" on:click={() => goto(resolve('/'))}>
 			⚡ QuickTransfer <span class="version">v1.3</span>
 		</div>
 	</header>
@@ -62,8 +63,10 @@
 			<h1>Share text across devices</h1>
 			<p>Paste and transfer text instantly — no apps, no accounts.</p>
 			<div class="btns">
-				<button on:click={() => goto('/save')} class="startbutton primary-button">Save Text</button>
-				<button on:click={() => goto('/load')} class="startbutton secondary-button"
+				<button on:click={() => goto(resolve('/save'))} class="startbutton primary-button">
+					Save Text
+				</button>
+				<button on:click={() => goto(resolve('/load'))} class="startbutton secondary-button"
 					>Load Text</button
 				>
 			</div>
@@ -100,7 +103,7 @@
 				rel="noreferrer"
 				class="downtextmobile">Feedback</a
 			>
-			<a href="/explanation" class="downtextmobile">How it works</a>
+			<a href={resolve('/explanation')} class="downtextmobile">How it works</a>
 			<a
 				href="https://github.com/SEOJIAF/QuickTransfer"
 				target="_blank"
