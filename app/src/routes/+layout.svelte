@@ -1,4 +1,3 @@
-
 <!-- svelte-ignore script_context_deprecated -->
 <script module lang="ts">
 	// Declare Ukraine as a global variable
@@ -7,10 +6,7 @@
 
 <script lang="ts">
 	import '../app.css';
-	import { goto } from '$app/navigation';
 	let { children } = $props();
-
-	import { onMount } from 'svelte';
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -19,4 +15,4 @@
 
 {@render children()}
 <title>QuickTransfer</title>
-<link rel="icon" type="image/x-icon" href="/newlogo.ico">
+<link rel="icon" type="image/x-icon" href="/newlogo.ico" />
