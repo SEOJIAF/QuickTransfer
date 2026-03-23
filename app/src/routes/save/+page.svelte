@@ -23,7 +23,8 @@
 			const buffer = new Uint32Array(1);
 			crypto.getRandomValues(buffer);
 			const normalized = buffer[0] / 0x100000000;
-			return (Math.floor(normalized * 9000) + 1000).toString();
+			const candidate = Math.floor(normalized * 9000) + 1000;
+			return Math.min(candidate, 9999).toString();
 		}
 		return Math.floor(Math.random() * 9000 + 1000).toString();
 	};
@@ -99,7 +100,7 @@
 		qrError = false;
 		qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
 			getShareUrl()
-		)}&size=512x512`;
+		)}&size=384x384`;
 		showPopup = !showPopup;
 		showPopup2 = false;
 	}

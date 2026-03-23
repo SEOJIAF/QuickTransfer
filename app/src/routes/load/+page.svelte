@@ -32,6 +32,12 @@
 			loaded = false;
 			return;
 		}
+		if (!/^\d{4}$/.test(trimmedId)) {
+			status = 'Enter the 4-digit ID from your save.';
+			statusTone = 'error';
+			loaded = false;
+			return;
+		}
 
 		status = 'Loading...';
 		statusTone = 'info';

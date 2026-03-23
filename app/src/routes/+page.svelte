@@ -47,8 +47,10 @@
 		<div class="nav-div">
 			<nav class="nav-links">
 				<a href="/explanation" class="downtextmobile">How it works</a>
-				<a href="https://github.com/SEOJIAF/QuickTransfer">GitHub</a>
-				<a href="https://war.ukraine.ua/">Support Ukraine 🇺🇦</a>
+				<a href="https://github.com/SEOJIAF/QuickTransfer" target="_blank" rel="noreferrer">
+					GitHub
+				</a>
+				<a href="https://war.ukraine.ua/" target="_blank" rel="noreferrer"> Support Ukraine 🇺🇦 </a>
 			</nav>
 		</div>
 		<div class="logo" on:click={() => goto('/')}>
@@ -100,7 +102,14 @@
 				class="downtextmobile">Feedback</a
 			>
 			<a href="/explanation" class="downtextmobile">How it works</a>
-			<a href="https://github.com/SEOJIAF/QuickTransfer" class="downtextmobile">GitHub</a>
+			<a
+				href="https://github.com/SEOJIAF/QuickTransfer"
+				target="_blank"
+				rel="noreferrer"
+				class="downtextmobile"
+			>
+				GitHub
+			</a>
 		</div>
 		<footer class="footer-wave"></footer>
 	{/if}
