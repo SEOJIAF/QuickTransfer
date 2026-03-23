@@ -4,65 +4,107 @@
 	// @ts-ignore
 	import { doc, getDoc, setDoc } from 'firebase/firestore';
 	// @ts-ignore
-	let copybutton = "Copy link";
+	let copybutton = 'Copy link';
 	let previous_text = '';
 	let docId = '';
 	let status = '';
-	// @ts-ignore
-	let files: FileList | null = null;
+	let statusTone = 'neutral';
+
+	const getShareUrl = () => {
+		const origin =
+			typeof window !== 'undefined' && window.location?.origin
+				? window.location.origin
+				: 'https://quicktransfer.vercel.app';
+		return `${origin}/load?Id=${docId}`;
+	};
+
+	const generateId = () => {
+		if (typeof crypto !== 'undefined' && 'getRandomValues' in crypto) {
+			const buffer = new Uint32Array(1);
+			crypto.getRandomValues(buffer);
+			const normalized = buffer[0] / 0x100000000;
+			return (Math.floor(normalized * 9000) + 1000).toString();
+		}
+		return Math.floor(Math.random() * 9000 + 1000).toString();
+	};
 
 	async function save() {
-		if (!text) {
-			alert('Please enter text.');
-			docId = 'error, try again';
-			return;
-		}
-		status = 'saving';
+		const trimmedText = text.trim();
+		showPopup = false;
+		showPopup2 = false;
+		copybutton = 'Copy link';
 
-		if (previous_text == text) {
-			status = 'you already saved this message with ' + docId;
-			togglePopup2();
-			return;
-		}
-
-		if (text.length >= 3000) {
-			alert(`Input is too long: ${text.length} out of 3000.`);
-			docId = 'error, try again';
+		if (!trimmedText) {
+			status = 'Add some text to save.';
+			statusTone = 'error';
 			return;
 		}
 
-		docId = Math.floor(Math.random() * 10000 + 1000).toString();
-
-		const docSnap = await getDoc(doc(db, 'texts', docId));
-		if (docSnap.exists()) {
-			docId = 'error, try again';
+		if (trimmedText.length > 3000) {
+			status = `Keep it under 3,000 characters. (${trimmedText.length}/3000)`;
+			statusTone = 'error';
 			return;
 		}
 
-		if (docId.length > 4) {
+		if (previous_text === trimmedText && docId) {
+			status = `Already saved. Your ID is ${docId}.`;
+			statusTone = 'info';
+			showPopup2 = true;
 			return;
 		}
+
+		status = 'Generating a secure ID...';
+		statusTone = 'info';
+
+		let candidateId = '';
+		for (let attempt = 0; attempt < 5; attempt += 1) {
+			const nextId = generateId();
+			const docSnap = await getDoc(doc(db, 'texts', nextId));
+			if (!docSnap.exists()) {
+				candidateId = nextId;
+				break;
+			}
+		}
+
+		if (!candidateId) {
+			status = 'Could not generate a new ID. Please try again.';
+			statusTone = 'error';
+			return;
+		}
+
+		docId = candidateId;
+
+		status = 'Saving...';
+		statusTone = 'info';
 
 		await setDoc(doc(db, 'texts', docId), {
-			content: text,
+			content: trimmedText,
 			expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000)
 		});
-		previous_text = text;
-		status = 'saved';
+		previous_text = trimmedText;
+		status = 'Saved! Share your ID, link, or QR code.';
+		statusTone = 'success';
+		showPopup2 = true;
 	}
-
-
-
 
 	// :)
 	let showPopup = false;
 	let showPopup2 = false;
 	let qrUrl = '';
+	let qrError = false;
 
 	function togglePopup() {
-		qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=https://dev-quicktransfer.vercel.app/load?Id=${docId}&size=15000x15000`;
+		if (!docId) {
+			status = 'Save text first to create a QR code.';
+			statusTone = 'error';
+			return;
+		}
+		qrError = false;
+		qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
+			getShareUrl()
+		)}&size=384x384`;
 		showPopup = !showPopup;
-		showPopup2 = !showPopup2;
+		showPopup2 = false;
 	}
 
 	function togglePopup2() {
@@ -72,21 +114,24 @@
 	let isExpanded = false;
 	let text = '';
 
-
-	function copytext() {
+	async function copytext() {
+		if (!docId) {
+			status = 'Save text first to generate a link.';
+			statusTone = 'error';
+			return;
+		}
 		try {
-			navigator.clipboard.writeText(`https://dev-quicktransfer.vercel.app/load?Id=${docId}`);
+			await navigator.clipboard.writeText(getShareUrl());
 			copybutton = 'Link copied';
+			status = 'Link copied to your clipboard.';
+			statusTone = 'success';
 		} catch (error) {
-			copybutton = 'error';
+			copybutton = 'Copy failed';
+			status = 'Unable to copy the link. Please try again.';
+			statusTone = 'error';
 		}
 	}
-
 </script>
-
-
-
-
 
 <header class="top-bar">
 	<div class="arrow">
@@ -118,19 +163,32 @@
 </header>
 
 <main class="container">
-	<h1>Save Text</h1>
-
-	<!-- Always render the textarea, just toggle its size -->
-	<p></p>
-
-	<textarea bind:value={text} class:is-expanded={isExpanded} placeholder="Type something..."
-	></textarea>
-	<h3>{status}</h3>
-	<div class="saveBtns">
-		<button on:click={() => {save();togglePopup2();}}>Save</button>
-		<button on:click={() => (isExpanded = !isExpanded)} class="copyBtn">{isExpanded ? 'Collapse' : 'Expand'}</button>
+	<div class="page-card">
+		<div class="page-header">
+			<h1>Save Text</h1>
+			<p class="subtitle">Paste your snippet below. It expires in 24 hours.</p>
+		</div>
+		<textarea
+			bind:value={text}
+			class:is-expanded={isExpanded}
+			placeholder="Type or paste something…"
+			maxlength="3000"
+			aria-label="Text to save"
+		></textarea>
+		<div class="helper-row">
+			<span class="helper-text">{text.length}/3000 characters</span>
+			<span class="helper-text">4-digit ID • 24-hour expiry</span>
+		</div>
+		{#if status}
+			<p class={`status-message ${statusTone}`} aria-live="polite">{status}</p>
+		{/if}
+		<div class="button-row">
+			<button on:click={save} class="primary-button">Save</button>
+			<button on:click={() => (isExpanded = !isExpanded)} class="secondary-button">
+				{isExpanded ? 'Collapse' : 'Expand'}
+			</button>
+		</div>
 	</div>
-
 
 	{#if showPopup}
 		<div
@@ -138,15 +196,34 @@
 			role="button"
 			tabindex="0"
 			on:click={togglePopup}
-			on:keydown={(e) => e.key === 'Enter' && togglePopup()}>
+			on:keydown={(e) => e.key === 'Enter' && togglePopup()}
+		>
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_interactive_supports_focus -->
 			<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
-				<h2 class="poptext2">Qr code</h2>
-				<p class="poptext">Scan to share.</p>
-				<img src={qrUrl} alt="s" class="qr" />
+				<h2 class="poptext2">QR code</h2>
+				<p class="poptext">Scan to open the link.</p>
+				{#if !qrError}
+					<img
+						src={qrUrl}
+						alt="QR code for your saved text"
+						class="qr"
+						loading="lazy"
+						referrerpolicy="no-referrer"
+						on:error={() => {
+							qrError = true;
+							status = 'QR code could not load. Use the link instead.';
+							statusTone = 'error';
+						}}
+					/>
+				{/if}
+				{#if qrError}
+					<p class="status-message error" role="alert">
+						QR code unavailable. Use the share link instead.
+					</p>
+				{/if}
 				<p></p>
-				<button on:click={togglePopup}>Close</button>
+				<button on:click={togglePopup} class="secondary-button">Close</button>
 			</div>
 		</div>
 	{/if}
@@ -166,12 +243,12 @@
 					<h1 class="ID">{docId}</h1>
 				</div>
 				<p>or</p>
-				
-				<div>
-					<button on:click={togglePopup} class="copyBtn">Qr code</button>
-					<button class="copyBtn"  on:click={copytext}>{copybutton}</button>
+
+				<div class="popup-actions">
+					<button on:click={togglePopup} class="secondary-button">QR code</button>
+					<button class="secondary-button" on:click={copytext}>{copybutton}</button>
 				</div>
-				<button on:click={togglePopup2}>Close</button>
+				<button on:click={togglePopup2} class="primary-button">Close</button>
 			</div>
 		</div>
 	{/if}

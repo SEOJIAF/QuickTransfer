@@ -8,52 +8,72 @@
 
 	let docId = '';
 	let retrievedText = '';
-	let copybutton = 'copy text';
-	let qrUrl = '';
-	let lodaded = false;
+	let copybutton = 'Copy text';
+	let loaded = false;
+	let status = '';
+	let statusTone = 'neutral';
 
 	onMount(async () => {
-		const $page = get(page)
-		const code = $page.url.searchParams.get('Id');
+		const $page = get(page);
+		const code = $page.url.searchParams.get('Id')?.trim();
 
 		if (code) {
-			const docRef = doc(db, 'texts', code);
-			const docSnap = await getDoc(docRef);
-
-			if (docSnap.exists()) {
-				retrievedText = docSnap.data().content;
-				docId = code; 
-				lodaded = true;
-			} else {
-				alert('No text found.');
-			}
-		} else {
-			console.log("No 'Id' in URL");
+			docId = code;
+			await load();
 		}
-
 	});
 
 	async function load() {
-		if (!docId) {
-			alert('Enter a text ID.');
+		const trimmedId = docId.trim();
+
+		if (!trimmedId) {
+			status = 'Enter a 4-digit ID.';
+			statusTone = 'error';
+			loaded = false;
 			return;
 		}
+		if (!/^\d{4}$/.test(trimmedId)) {
+			status = 'ID must be exactly 4 digits.';
+			statusTone = 'error';
+			loaded = false;
+			return;
+		}
+
+		status = 'Loading...';
+		statusTone = 'info';
+		docId = trimmedId;
 
 		const docRef = doc(db, 'texts', docId);
 		const docSnap = await getDoc(docRef);
 
 		if (docSnap.exists()) {
 			retrievedText = docSnap.data().content;
+			loaded = true;
+			status = 'Text loaded successfully.';
+			statusTone = 'success';
+		} else {
+			retrievedText = '';
+			loaded = false;
+			status = 'We could not find that ID.';
+			statusTone = 'error';
 		}
-		lodaded = true;
 	}
 
-	function copytext() {
+	async function copytext() {
+		if (!retrievedText) {
+			status = 'Load a text first to copy it.';
+			statusTone = 'error';
+			return;
+		}
 		try {
-			navigator.clipboard.writeText(retrievedText);
-			copybutton = 'text copied';
+			await navigator.clipboard.writeText(retrievedText);
+			copybutton = 'Text copied';
+			status = 'Copied to clipboard.';
+			statusTone = 'success';
 		} catch (error) {
-			copybutton = 'error';
+			copybutton = 'Copy failed';
+			status = 'Unable to copy the text. Please try again.';
+			statusTone = 'error';
 		}
 	}
 </script>
@@ -87,20 +107,34 @@
 	</div>
 </header>
 <main class="container">
-	<h1>Load Text</h1>
-	<form class="formField">
-		<input bind:value={docId} inputmode="numeric" />
-		<span>ID</span>
-	</form>
+	<div class="page-card">
+		<div class="page-header">
+			<h1>Load Text</h1>
+			<p class="subtitle">Enter the 4-digit ID to retrieve your text.</p>
+		</div>
+		<form class="formField" on:submit|preventDefault={load}>
+			<input
+				bind:value={docId}
+				inputmode="numeric"
+				autocomplete="off"
+				maxlength="4"
+				placeholder="1234"
+				aria-label="4-digit text ID"
+			/>
+			<span>ID</span>
+		</form>
+		<div class="button-row">
+			<button on:click={load} class="primary-button">Load</button>
+		</div>
+		{#if status}
+			<p class={`status-message ${statusTone}`} aria-live="polite">{status}</p>
+		{/if}
 
-	<p></p>
-	<button on:click={load}>Load</button>
-
-	{#if (lodaded == true)}
-		<hr>
-		<p class="retriev">Retrieved Text</p>
-		<!-- <button on:click={makeQr} class="copyBtn">Qr code</button> -->
-		<pre class="retrieved">{retrievedText}</pre>
-		<button on:click={copytext} class="copyBtn">{copybutton}</button>
-	{/if}
+		{#if loaded}
+			<hr />
+			<p class="retriev">Retrieved text</p>
+			<pre class="retrieved">{retrievedText}</pre>
+			<button on:click={copytext} class="secondary-button">{copybutton}</button>
+		{/if}
+	</div>
 </main>
