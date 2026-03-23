@@ -18,6 +18,15 @@
 		return `${origin}/load?Id=${docId}`;
 	};
 
+	const generateId = () => {
+		if (typeof crypto !== 'undefined' && 'getRandomValues' in crypto) {
+			const buffer = new Uint32Array(1);
+			crypto.getRandomValues(buffer);
+			return ((buffer[0] % 9000) + 1000).toString();
+		}
+		return Math.floor(Math.random() * 9000 + 1000).toString();
+	};
+
 	async function save() {
 		const trimmedText = text.trim();
 		showPopup = false;
@@ -48,7 +57,7 @@
 
 		let candidateId = '';
 		for (let attempt = 0; attempt < 5; attempt += 1) {
-			const nextId = Math.floor(Math.random() * 9000 + 1000).toString();
+			const nextId = generateId();
 			const docSnap = await getDoc(doc(db, 'texts', nextId));
 			if (!docSnap.exists()) {
 				candidateId = nextId;
@@ -78,6 +87,7 @@
 	let showPopup = false;
 	let showPopup2 = false;
 	let qrUrl = '';
+	let qrError = false;
 
 	function togglePopup() {
 		if (!docId) {
@@ -85,6 +95,7 @@
 			statusTone = 'error';
 			return;
 		}
+		qrError = false;
 		qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
 			getShareUrl()
 		)}&size=512x512`;
@@ -188,7 +199,21 @@
 			<div class="popup-content" role="dialog" aria-modal="true" on:click|stopPropagation>
 				<h2 class="poptext2">QR code</h2>
 				<p class="poptext">Scan to open the link.</p>
-				<img src={qrUrl} alt="QR code for your saved text" class="qr" />
+				{#if !qrError}
+					<img
+						src={qrUrl}
+						alt="QR code for your saved text"
+						class="qr"
+						on:error={() => {
+							qrError = true;
+							status = 'QR code could not load. Use the link instead.';
+							statusTone = 'error';
+						}}
+					/>
+				{/if}
+				{#if qrError}
+					<p class="status-message error">QR code unavailable. Use the share link instead.</p>
+				{/if}
 				<p></p>
 				<button on:click={togglePopup} class="secondary-button">Close</button>
 			</div>
