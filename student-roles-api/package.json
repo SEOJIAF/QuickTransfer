@@ -1,0 +1,27 @@
+{
+  "name": "student-roles-api",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
+  },
+  "keywords": ["elysia", "prisma", "postgresql", "student-management"],
+  "author": "",
+  "license": "ISC",
+  "description": "Student Management API with Elysia and Prisma using PostgreSQL",
+  "dependencies": {
+    "@elysiajs/cors": "^1.4.1",
+    "@prisma/client": "^7.2.0",
+    "elysia": "^1.4.22",
+    "prisma": "^7.2.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
+  }
+}
